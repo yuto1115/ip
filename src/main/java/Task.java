@@ -7,11 +7,11 @@ public class Task {
         this.done = false;
     }
 
-    public void getDone() {
+    public void markAsDone() {
         this.done = true;
     }
 
-    public void getNotDone() {
+    public void markAsNotDone() {
         this.done = false;
     }
 
