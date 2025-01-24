@@ -2,7 +2,7 @@ public abstract class Task {
     final String name;
     boolean done;
 
-    Task(String name) {
+    public Task(String name) {
         this.name = name;
         this.done = false;
     }
