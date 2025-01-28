@@ -95,6 +95,20 @@ public class Odin {
                     speak(String.format("Task %d remains unfinished. Let it be revisited with renewed focus and determination.", idx), tasks.get(idx - 1).toString());
                 }
                 break;
+            case "delete":
+                if (tokens.size() != 2 || !isInteger(tokens.get(1))) {
+                    throw new WrongFormatException("delete [task index]");
+                } else {
+                    int idx = Integer.parseInt(tokens.get(1));
+                    if (idx <= 0 || idx > tasks.size()) {
+                        throw new OdinException(String.format("The task index you speak of is incorrect. There are tasks numbered 1 through %d.", tasks.size()));
+                    }
+                    speak("This task has been removed from the list.",
+                            "  " + tasks.get(idx - 1),
+                            String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size() - 1));
+                    tasks.remove(idx - 1);
+                }
+                break;
             default:
                 throw new OdinException(String.format("The command '%s' is not supported. Seek the correct path, and your request shall be honored.", tokens.get(0)));
         }
