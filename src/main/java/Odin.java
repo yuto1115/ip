@@ -68,9 +68,10 @@ public class Odin {
                         int index = Integer.parseInt(tokens.get(1));
                         if (index <= 0 || index > tasks.size()) {
                             speak(String.format("The task index you speak of is incorrect. There are tasks numbered 1 through %d.", tasks.size()));
+                        } else {
+                            tasks.get(index - 1).markAsDone();
+                            speak(String.format("Task %d has been marked as completed. May the next task be approached with equal diligence.", index), tasks.get(index - 1).toString());
                         }
-                        tasks.get(index - 1).markAsDone();
-                        speak(String.format("Task %d has been marked as completed. May the next task be approached with equal diligence.", index), tasks.get(index - 1).toString());
                     }
                     break;
                 case "unmark":
@@ -80,9 +81,10 @@ public class Odin {
                         int index = Integer.parseInt(tokens.get(1));
                         if (index <= 0 || index > tasks.size()) {
                             speak(String.format("The task index is incorrect. There are tasks numbered 1 through %d.", tasks.size()));
+                        } else {
+                            tasks.get(index - 1).markAsNotDone();
+                            speak(String.format("Task %d remains unfinished. Let it be revisited with renewed focus and determination.", index), tasks.get(index - 1).toString());
                         }
-                        tasks.get(index - 1).markAsNotDone();
-                        speak(String.format("Task %d remains unfinished. Let it be revisited with renewed focus and determination.", index), tasks.get(index - 1).toString());
                     }
                     break;
                 default:
