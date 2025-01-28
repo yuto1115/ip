@@ -11,86 +11,94 @@ public class Odin {
 
         ArrayList<Task> tasks = new ArrayList<>();
 
-        while (true) {
-            String input = listen();
-            ArrayList<String> tokens = new ArrayList<>();
-            for (String token : input.split(" ")) {
-                if (!token.isEmpty()) tokens.add(token);
+        boolean done = false;
+        while (!done) {
+            ArrayList<String> tokens = listen();
+            try {
+                done = handle_command(tasks, tokens);
+            } catch (OdinException e) {
+                speak(e.getMessage());
             }
-            switch (tokens.get(0).toLowerCase()) {
-                case "bye":
-                    speak("Bye. We shall meet again.");
-                    return;
-                case "todo":
+        }
+    }
+
+    private static boolean handle_command(ArrayList<Task> tasks, ArrayList<String> tokens) throws OdinException {
+        switch (tokens.get(0).toLowerCase()) {
+            case "bye":
+                speak("Bye. We shall meet again.");
+                return true;
+            case "todo":
+                try {
                     tasks.add(new Todo(concatBySpace(tokens, 1, tokens.size())));
                     speak("This task has been added to the list.",
                             "  " + tasks.get(tasks.size() - 1),
                             String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size()));
-                    break;
-                case "deadline":
+                } catch (Exception e) {
+                    throw new WrongFormatException("todo [task]");
+                }
+                break;
+            case "deadline":
+                try {
                     int by_idx = tokens.indexOf("/by");
-                    if (by_idx == -1) {
-                        speak("Your format is flawed. The correct method is to utter 'deadline [task] /by [time]'.");
-                    } else {
-                        tasks.add(new Deadline(concatBySpace(tokens, 1, by_idx),
-                                concatBySpace(tokens, by_idx + 1, tokens.size())));
-                        speak("This task has been added to the list.",
-                                "  " + tasks.get(tasks.size() - 1),
-                                String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size()));
-                    }
-                    break;
-                case "event":
+                    tasks.add(new Deadline(concatBySpace(tokens, 1, by_idx),
+                            concatBySpace(tokens, by_idx + 1, tokens.size())));
+                    speak("This task has been added to the list.",
+                            "  " + tasks.get(tasks.size() - 1),
+                            String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size()));
+                } catch (Exception e) {
+                    throw new WrongFormatException("deadline [task] /by [time]");
+                }
+                break;
+            case "event":
+                try {
                     int from_idx = tokens.indexOf("/from");
                     int to_idx = tokens.indexOf("/to");
-                    if (from_idx == -1 || to_idx == -1 || from_idx > to_idx) {
-                        speak("Your format is flawed. The correct method is to utter 'event [task] /from [time] /to [time]'s.");
-                    } else {
-                        tasks.add(new Event(concatBySpace(tokens, 1, from_idx),
-                                concatBySpace(tokens, from_idx + 1, to_idx),
-                                concatBySpace(tokens, to_idx + 1, tokens.size())));
-                        speak("This task has been added to the list.",
-                                "  " + tasks.get(tasks.size() - 1),
-                                String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size()));
+                    tasks.add(new Event(concatBySpace(tokens, 1, from_idx),
+                            concatBySpace(tokens, from_idx + 1, to_idx),
+                            concatBySpace(tokens, to_idx + 1, tokens.size())));
+                    speak("This task has been added to the list.",
+                            "  " + tasks.get(tasks.size() - 1),
+                            String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size()));
+                } catch (Exception e) {
+                    throw new WrongFormatException("event [task] /from [time] /to [time]");
+                }
+                break;
+            case "list":
+                ArrayList<String> messages = new ArrayList<>();
+                messages.add("These are the tasks upon the list.");
+                for (int i = 0; i < tasks.size(); i++) {
+                    messages.add(String.format("%d. %s", i + 1, tasks.get(i)));
+                }
+                speak(messages);
+                break;
+            case "mark":
+                if (tokens.size() != 2 || !isInteger(tokens.get(1))) {
+                    throw new WrongFormatException("mark [task index]");
+                } else {
+                    int idx = Integer.parseInt(tokens.get(1));
+                    if (idx <= 0 || idx > tasks.size()) {
+                        throw new OdinException(String.format("The task index you speak of is incorrect. There are tasks numbered 1 through %d.", tasks.size()));
                     }
-                    break;
-                case "list":
-                    ArrayList<String> messages = new ArrayList<>();
-                    messages.add("These are the tasks upon the list.");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        messages.add(String.format("%d. %s", i + 1, tasks.get(i)));
+                    tasks.get(idx - 1).markAsDone();
+                    speak(String.format("Task %d has been marked as completed. May the next task be approached with equal diligence.", idx), tasks.get(idx - 1).toString());
+                }
+                break;
+            case "unmark":
+                if (tokens.size() != 2 || !isInteger(tokens.get(1))) {
+                    throw new WrongFormatException("unmark [task index]");
+                } else {
+                    int idx = Integer.parseInt(tokens.get(1));
+                    if (idx <= 0 || idx > tasks.size()) {
+                        throw new OdinException(String.format("The task index you speak of is incorrect. There are tasks numbered 1 through %d.", tasks.size()));
                     }
-                    speak(messages);
-                    break;
-                case "mark":
-                    if (tokens.size() != 2 || !isInteger(tokens.get(1))) {
-                        speak("Your format is flawed. The correct method is to utter 'mark [task index]'.");
-                    } else {
-                        int index = Integer.parseInt(tokens.get(1));
-                        if (index <= 0 || index > tasks.size()) {
-                            speak(String.format("The task index you speak of is incorrect. There are tasks numbered 1 through %d.", tasks.size()));
-                        } else {
-                            tasks.get(index - 1).markAsDone();
-                            speak(String.format("Task %d has been marked as completed. May the next task be approached with equal diligence.", index), tasks.get(index - 1).toString());
-                        }
-                    }
-                    break;
-                case "unmark":
-                    if (tokens.size() != 2 || !isInteger(tokens.get(1))) {
-                        speak("Your format is flawed. The correct method is to utter 'unmark [task index]'.");
-                    } else {
-                        int index = Integer.parseInt(tokens.get(1));
-                        if (index <= 0 || index > tasks.size()) {
-                            speak(String.format("The task index is incorrect. There are tasks numbered 1 through %d.", tasks.size()));
-                        } else {
-                            tasks.get(index - 1).markAsNotDone();
-                            speak(String.format("Task %d remains unfinished. Let it be revisited with renewed focus and determination.", index), tasks.get(index - 1).toString());
-                        }
-                    }
-                    break;
-                default:
-                    speak(String.format("The command '%s' is not supported. Seek the correct path, and your request shall be honored.", tokens.get(0)));
-            }
+                    tasks.get(idx - 1).markAsNotDone();
+                    speak(String.format("Task %d remains unfinished. Let it be revisited with renewed focus and determination.", idx), tasks.get(idx - 1).toString());
+                }
+                break;
+            default:
+                throw new OdinException(String.format("The command '%s' is not supported. Seek the correct path, and your request shall be honored.", tokens.get(0)));
         }
+        return false;
     }
 
     private static void speak(String... messages) {
@@ -115,19 +123,27 @@ public class Odin {
         System.out.println(SEPARATOR);
     }
 
-    private static String listen() {
-        System.out.print("You: ");
-        String input = scanner.nextLine();
+    private static ArrayList<String> listen() {
+        ArrayList<String> tokens = new ArrayList<>();
+        while (tokens.isEmpty()) {
+            System.out.print("You: ");
+            String input = scanner.nextLine();
+            for (String token : input.split(" ")) {
+                if (!token.isEmpty()) tokens.add(token);
+            }
+        }
         System.out.println(SEPARATOR);
-        return input;
+        return tokens;
     }
 
     private static boolean isInteger(String str) {
         return str.matches("\\d+");
     }
 
-    private static String concatBySpace(ArrayList<String> tokens, int l, int r) {
-        assert 0 <= l && l < r && r <= tokens.size();
+    private static String concatBySpace(ArrayList<String> tokens, int l, int r) throws IndexOutOfBoundsException {
+        if (!(0 <= l && l < r && r <= tokens.size())) {
+            throw new IndexOutOfBoundsException("");
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = l; i < r; i++) {
             if (i > l) sb.append(" ");
