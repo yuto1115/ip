@@ -15,7 +15,7 @@ public class Odin {
         while (!done) {
             ArrayList<String> tokens = listen();
             try {
-                done = handle_command(tasks, tokens);
+                done = handleCommand(tasks, tokens);
             } catch (OdinException e) {
                 speak(e.getMessage());
             }
@@ -30,7 +30,7 @@ public class Odin {
      * @return True if the conversation is finished, false otherwise.
      * @throws OdinException If the given tokens do not follow correct formats.
      */
-    private static boolean handle_command(ArrayList<Task> tasks, ArrayList<String> tokens) throws OdinException {
+    private static boolean handleCommand(ArrayList<Task> tasks, ArrayList<String> tokens) throws OdinException {
         switch (tokens.get(0).toLowerCase()) {
         case "bye":
             speak("Bye. We shall meet again.");
