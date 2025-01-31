@@ -22,6 +22,14 @@ public class Odin {
         }
     }
 
+    /**
+     * Processes the given tokens and updates the task list accordingly.
+     *
+     * @param tasks The task list.
+     * @param tokens Tokens from the user input.
+     * @return True if the conversation is finished, false otherwise.
+     * @throws OdinException If the given tokens do not follow correct formats.
+     */
     private static boolean handle_command(ArrayList<Task> tasks, ArrayList<String> tokens) throws OdinException {
         switch (tokens.get(0).toLowerCase()) {
         case "bye":
@@ -115,6 +123,9 @@ public class Odin {
         return false;
     }
 
+    /**
+     * Prints messages to the standard output in a specific format.
+     */
     private static void speak(String... messages) {
         for (int i = 0; i < messages.length; i++) {
             if (i == 0) {
@@ -126,6 +137,9 @@ public class Odin {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Overloaded version of speak(String...).
+     */
     private static void speak(ArrayList<String> messages) {
         for (int i = 0; i < messages.size(); i++) {
             if (i == 0) {
@@ -137,6 +151,11 @@ public class Odin {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Reads input from the user, and splits it into tokens by spaces.
+     *
+     * @return The list of tokens the user inputted.
+     */
     private static ArrayList<String> listen() {
         ArrayList<String> tokens = new ArrayList<>();
         while (tokens.isEmpty()) {
@@ -150,10 +169,22 @@ public class Odin {
         return tokens;
     }
 
+    /**
+     * Check if the given string represents a (positive) integer.
+     */
     private static boolean isInteger(String str) {
         return str.matches("\\d+");
     }
 
+    /**
+     * Concatenates by spaces the words in the specific range of a list of tokens.
+     *
+     * @param tokens List of tokens.
+     * @param l Start index of the range (inclusive).
+     * @param r End index of the range (exclusive).
+     * @return String obtained by concatenating the tokens with spaces in between.
+     * @throws IndexOutOfBoundsException If 0 <= l < r <= tokens.size() not satisfied.
+     */
     private static String concatBySpace(ArrayList<String> tokens, int l, int r) throws IndexOutOfBoundsException {
         if (!(0 <= l && l < r && r <= tokens.size())) {
             throw new IndexOutOfBoundsException("");
