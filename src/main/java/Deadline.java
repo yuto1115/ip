@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Deadline extends Task {
     private final String by;
 
@@ -9,6 +11,13 @@ public class Deadline extends Task {
     @Override
     public String taskType() {
         return "D";
+    }
+
+    @Override
+    public ArrayList<String> getTaskRecord() {
+        ArrayList<String> taskRecord = super.getTaskRecord();
+        taskRecord.add(this.by);
+        return taskRecord;
     }
 
     @Override
