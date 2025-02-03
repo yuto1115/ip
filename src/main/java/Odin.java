@@ -62,9 +62,11 @@ public class Odin {
                     throw new WrongFormatException("'/by not found.");
                 } else if (by_idx == 1) {
                     throw new WrongFormatException("TASK cannot be empty.");
+                } else if (by_idx == tokens.size() - 1) {
+                    throw new WrongFormatException("DATE cannot be empty.");
                 }
-                tasks.add(new Deadline(concatBySpace(tokens, 1, by_idx),
-                        concatBySpace(tokens, by_idx + 1, tokens.size())));
+                DateAndOptionalTime by = new DateAndOptionalTime(new ArrayList<>(tokens.subList(by_idx + 1, tokens.size())));
+                tasks.add(new Deadline(concatBySpace(tokens, 1, by_idx), by));
                 speak("This task has been added to the list.",
                         "  " + tasks.get(tasks.size() - 1),
                         String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size()));
@@ -81,14 +83,16 @@ public class Odin {
                     throw new WrongFormatException("'/from not found.");
                 } else if (to_idx == -1) {
                     throw new WrongFormatException("'/to not found.");
-                } else if (from_idx == 1) {
-                    throw new WrongFormatException("TASK cannot be empty.");
                 } else if (from_idx > to_idx) {
                     throw new WrongFormatException("/from must come before /to.");
+                } else if (from_idx == 1) {
+                    throw new WrongFormatException("TASK cannot be empty.");
+                } else if (from_idx + 1 == to_idx || to_idx == tokens.size() - 1) {
+                    throw new WrongFormatException("DATE cannot be empty.");
                 }
-                tasks.add(new Event(concatBySpace(tokens, 1, from_idx),
-                        concatBySpace(tokens, from_idx + 1, to_idx),
-                        concatBySpace(tokens, to_idx + 1, tokens.size())));
+                DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(tokens.subList(from_idx + 1, to_idx)));
+                DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(tokens.subList(to_idx + 1, tokens.size())));
+                tasks.add(new Event(concatBySpace(tokens, 1, from_idx), from, to));
                 speak("This task has been added to the list.",
                         "  " + tasks.get(tasks.size() - 1),
                         String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", tasks.size()));

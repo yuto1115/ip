@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Task {
     final String name;
@@ -58,15 +59,15 @@ public abstract class Task {
             if (len != 4) {
                 throw new WrongFormatException("Number of tokens in a task record of deadline must be four.");
             }
-            String by = taskRecord.get(3);
+            DateAndOptionalTime by = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
             task = new Deadline(name, by);
             break;
         case "E":
             if (len != 5) {
                 throw new WrongFormatException("Number of tokens in a task record of event must be five.");
             }
-            String from = taskRecord.get(3);
-            String to = taskRecord.get(4);
+            DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
+            DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(4).split(" "))));
             task = new Event(name, from, to);
             break;
         default:
