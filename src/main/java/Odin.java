@@ -1,28 +1,42 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Odin {
     private static final String SEPARATOR = "_________________________________________________________________________________________________________";
     private static final Scanner scanner = new Scanner(System.in);
+    private static final String RECORD_FILE_NAME = "./src/data/records.txt";
 
     public static void main(String[] args) {
-        System.out.println(SEPARATOR);
-        speak("I am Odin, god of wisdom.", "What knowledge do you seek?");
+        ArrayList<Task> tasks = loadTaskList(RECORD_FILE_NAME);
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        speak("I am Odin, god of wisdom.", "What knowledge do you seek?");
 
         boolean done = false;
         while (!done) {
             ArrayList<String> tokens = listen();
             try {
-                done = handle_command(tasks, tokens);
+                done = handleCommand(tasks, tokens);
             } catch (OdinException e) {
                 speak(e.getMessage());
             }
         }
+
+        saveTaskList(RECORD_FILE_NAME, tasks);
     }
 
-    private static boolean handle_command(ArrayList<Task> tasks, ArrayList<String> tokens) throws OdinException {
+    /**
+     * Processes the given tokens and updates the task list accordingly.
+     *
+     * @param tasks  The task list.
+     * @param tokens Tokens from the user input.
+     * @return True if the conversation is finished, false otherwise.
+     * @throws OdinException If the given tokens do not follow correct formats.
+     */
+    private static boolean handleCommand(ArrayList<Task> tasks, ArrayList<String> tokens) throws OdinException {
         switch (tokens.get(0).toLowerCase()) {
         case "bye":
             speak("Bye. We shall meet again.");
@@ -115,6 +129,9 @@ public class Odin {
         return false;
     }
 
+    /**
+     * Prints messages to the standard output in a specific format.
+     */
     private static void speak(String... messages) {
         for (int i = 0; i < messages.length; i++) {
             if (i == 0) {
@@ -126,6 +143,9 @@ public class Odin {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Overloaded version of speak(String...).
+     */
     private static void speak(ArrayList<String> messages) {
         for (int i = 0; i < messages.size(); i++) {
             if (i == 0) {
@@ -137,32 +157,101 @@ public class Odin {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Reads input from the user, and splits it into tokens by spaces.
+     *
+     * @return The list of tokens the user inputted.
+     */
     private static ArrayList<String> listen() {
         ArrayList<String> tokens = new ArrayList<>();
         while (tokens.isEmpty()) {
             System.out.print("You: ");
             String input = scanner.nextLine();
             for (String token : input.split(" ")) {
-                if (!token.isEmpty()) tokens.add(token);
+                if (!token.isEmpty()) {
+                    tokens.add(token);
+                }
             }
         }
         System.out.println(SEPARATOR);
         return tokens;
     }
 
+    /**
+     * Check if the given string represents a (positive) integer.
+     */
     private static boolean isInteger(String str) {
         return str.matches("\\d+");
     }
 
+    /**
+     * Concatenates by spaces the words in the specific range of a list of tokens.
+     *
+     * @param tokens List of tokens.
+     * @param l      Start index of the range (inclusive).
+     * @param r      End index of the range (exclusive).
+     * @return String obtained by concatenating the tokens with spaces in between.
+     * @throws IndexOutOfBoundsException If 0 <= l < r <= tokens.size() not satisfied.
+     */
     private static String concatBySpace(ArrayList<String> tokens, int l, int r) throws IndexOutOfBoundsException {
         if (!(0 <= l && l < r && r <= tokens.size())) {
             throw new IndexOutOfBoundsException("");
         }
         StringBuilder sb = new StringBuilder();
         for (int i = l; i < r; i++) {
-            if (i > l) sb.append(" ");
+            if (i > l) {
+                sb.append(" ");
+            }
             sb.append(tokens.get(i));
         }
         return sb.toString();
+    }
+
+    private static ArrayList<Task> loadTaskList(String fileName) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<String> currentRecord = new ArrayList<>();
+        File file = new File(fileName);
+        try (Scanner fileScanner = new Scanner(file)) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                if (line.equals(SEPARATOR)) {
+                    tasks.add(Task.restoreFromTaskRecord(currentRecord));
+                    currentRecord.clear();
+                } else {
+                    currentRecord.add(line);
+                }
+            }
+            if (!currentRecord.isEmpty()) {
+                throw new Exception();
+            }
+            fileScanner.close();
+            System.out.println(String.format("(system) Successfully restored the task list from record file %s.", fileName));
+        } catch (FileNotFoundException e) {
+            System.out.println("(system) Record file not found. Initialising with an empty task list.");
+        } catch (Exception e) {
+            System.out.println("(system) Record is broken. Initialising with an empty task list.");
+        }
+        System.out.println(SEPARATOR);
+        return tasks;
+    }
+
+    private static void saveTaskList(String fileName, ArrayList<Task> tasks) {
+        File file = new File(fileName);
+        if (file.getParentFile() != null && !file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        try (FileWriter fileWriter = new FileWriter(file, false)) {
+            for (Task task : tasks) {
+                ArrayList<String> record = task.getTaskRecord();
+                for (String s : record) {
+                    fileWriter.write(s + "\n");
+                }
+                fileWriter.write(SEPARATOR + "\n");
+            }
+            fileWriter.close();
+            System.out.println(String.format("(system) Successfully saved the task list to record file %s.", fileName));
+        } catch (IOException e) {
+            System.out.println("(system) An error occurred while saving the task list.\n" + e.getMessage());
+        }
     }
 }
