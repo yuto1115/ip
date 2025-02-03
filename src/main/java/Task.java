@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Task {
     final String name;
@@ -34,12 +35,12 @@ public abstract class Task {
     /**
      * Restores a task object from a list of strings saved in a record.
      *
-     * @throws Exception If the record does not follow the correct format.
+     * @throws WrongFormatException If the record does not follow the correct format.
      */
-    public static Task restoreFromTaskRecord(ArrayList<String> taskRecord) throws Exception {
+    public static Task restoreFromTaskRecord(ArrayList<String> taskRecord) throws WrongFormatException {
         int len = taskRecord.size();
         if (len < 3) {
-            throw new Exception();
+            throw new WrongFormatException("Number of tokens in a task record must be at least three.");
         }
 
         String type = taskRecord.get(0);
@@ -50,27 +51,27 @@ public abstract class Task {
         switch (type) {
         case "T":
             if (len != 3) {
-                throw new Exception();
+                throw new WrongFormatException("Number of tokens in a task record of todo must be three.");
             }
             task = new Todo(name);
             break;
         case "D":
             if (len != 4) {
-                throw new Exception();
+                throw new WrongFormatException("Number of tokens in a task record of deadline must be four.");
             }
-            String by = taskRecord.get(3);
+            DateAndOptionalTime by = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
             task = new Deadline(name, by);
             break;
         case "E":
             if (len != 5) {
-                throw new Exception();
+                throw new WrongFormatException("Number of tokens in a task record of event must be five.");
             }
-            String from = taskRecord.get(3);
-            String to = taskRecord.get(4);
+            DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
+            DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(4).split(" "))));
             task = new Event(name, from, to);
             break;
         default:
-            throw new Exception();
+            throw new WrongFormatException("Unknown task type in a task record.");
         }
 
         if (isDone.equals("1")) {

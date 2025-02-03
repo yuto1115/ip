@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Event extends Task {
-    private final String from, to;
+    private final DateAndOptionalTime from, to;
 
-    public Event(String str, String from, String to) {
+    public Event(String str, DateAndOptionalTime from, DateAndOptionalTime to) {
         super(str);
         this.from = from;
         this.to = to;
@@ -17,13 +17,13 @@ public class Event extends Task {
     @Override
     public ArrayList<String> getTaskRecord() {
         ArrayList<String> taskRecord = super.getTaskRecord();
-        taskRecord.add(this.from);
-        taskRecord.add(this.to);
+        taskRecord.add(this.from.getOriginalString());
+        taskRecord.add(this.to.getOriginalString());
         return taskRecord;
     }
 
     @Override
     public String toString() {
-        return String.format("%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        return String.format("%s (from: %s to: %s)", super.toString(), this.from.toString(), this.to.toString());
     }
 }

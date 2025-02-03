@@ -1,13 +1,20 @@
 todo borrow book
 todo
-deadline return book /by Sunday morning
 deadline return book
-deadline /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-event project meeting /to Mon 2pm /from 4pm
+deadline /by 2025-03-11
+deadline return book /by Sunday
+deadline return book /by 2025-03-11
+deadline return book /by 2025-03-11 8pm
+deadline return book /by 2025-03-11 21:00
 event project /to /from 4pm
 event project /to 4pm
+event project meeting /from 2025-03-11 17:00 /to 2025-03-11 19:00
+event project meeting /to 2025-03-11 19:00 /from 2025-03-11 17:00
+event holiday /from 2025-12-30 /to 2026-01-04 00:00
 List
+delete 0
+delete 2
+delete 3
 mark 0
 mark 1
 mark 3
@@ -17,9 +24,6 @@ unmark 1
 list
 unmark 3
 unmark 4
-delete 0
-delete 2
-delete 3
 list
 unknown_command
 bye

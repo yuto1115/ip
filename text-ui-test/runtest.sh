@@ -12,6 +12,12 @@ then
     rm ACTUAL.TXT
 fi
 
+# delete record from previous run
+if [ -e "./src/data/records.txt" ]
+then
+    rm ./src/data/records.txt
+fi
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
 then
