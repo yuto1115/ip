@@ -1,3 +1,8 @@
+package odin.task;
+
+import odin.parser.DateAndOptionalTime;
+import odin.exception.WrongFormatException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,21 +15,20 @@ public abstract class Task {
         this.done = false;
     }
 
-    public void markAsDone() {
+    void markAsDone() {
         this.done = true;
     }
 
-    public void markAsNotDone() {
+    void markAsNotDone() {
         this.done = false;
     }
 
-    public abstract String taskType();
-
+    abstract String taskType();
 
     /**
      * Returns a list of strings to be saved in record.
      */
-    public ArrayList<String> getTaskRecord() {
+    ArrayList<String> getTaskRecord() {
         ArrayList<String> taskRecord = new ArrayList<>();
         taskRecord.add(this.taskType());
         taskRecord.add(this.name);
@@ -37,10 +41,10 @@ public abstract class Task {
      *
      * @throws WrongFormatException If the record does not follow the correct format.
      */
-    public static Task restoreFromTaskRecord(ArrayList<String> taskRecord) throws WrongFormatException {
+    static Task restoreFromTaskRecord(ArrayList<String> taskRecord) throws WrongFormatException {
         int len = taskRecord.size();
         if (len < 3) {
-            throw new WrongFormatException("Number of tokens in a task record must be at least three.");
+            throw new WrongFormatException("Number of tokens in a Odin.task record must be at least three.");
         }
 
         String type = taskRecord.get(0);
@@ -51,27 +55,27 @@ public abstract class Task {
         switch (type) {
         case "T":
             if (len != 3) {
-                throw new WrongFormatException("Number of tokens in a task record of todo must be three.");
+                throw new WrongFormatException("Number of tokens in a Odin.task record of todo must be three.");
             }
             task = new Todo(name);
             break;
         case "D":
             if (len != 4) {
-                throw new WrongFormatException("Number of tokens in a task record of deadline must be four.");
+                throw new WrongFormatException("Number of tokens in a Odin.task record of deadline must be four.");
             }
             DateAndOptionalTime by = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
             task = new Deadline(name, by);
             break;
         case "E":
             if (len != 5) {
-                throw new WrongFormatException("Number of tokens in a task record of event must be five.");
+                throw new WrongFormatException("Number of tokens in a Odin.task record of event must be five.");
             }
             DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
             DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(4).split(" "))));
             task = new Event(name, from, to);
             break;
         default:
-            throw new WrongFormatException("Unknown task type in a task record.");
+            throw new WrongFormatException("Unknown Odin.task type in a Odin.task record.");
         }
 
         if (isDone.equals("1")) {

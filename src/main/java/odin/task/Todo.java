@@ -1,10 +1,12 @@
+package odin.task;
+
 public class Todo extends Task {
     public Todo(String str) {
         super(str);
     }
 
     @Override
-    public String taskType() {
+    String taskType() {
         return "T";
     }
 }

@@ -10,19 +10,19 @@ Odin: This task has been added to the list.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: TASK cannot be empty.
-      Your format is flawed. The correct method is to utter 'todo TASK'.
+      The correct method is to utter 'todo TASK'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: '/by not found.
-      Your format is flawed. The correct method is to utter 'deadline TASK /by DATE [TIME]'.
+      The correct method is to utter 'deadline TASK /by DATE [TIME]'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: TASK cannot be empty.
-      Your format is flawed. The correct method is to utter 'deadline TASK /by DATE [TIME]'.
+      The correct method is to utter 'deadline TASK /by DATE [TIME]'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: Date cannot be parsed as yyyy-MM-dd.
-      Your format is flawed. The correct method is to utter 'deadline TASK /by DATE [TIME]'.
+      The correct method is to utter 'deadline TASK /by DATE [TIME]'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: This task has been added to the list.
@@ -31,7 +31,7 @@ Odin: This task has been added to the list.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: Time cannot be parsed as hh:mm or hh:mm:ss.
-      Your format is flawed. The correct method is to utter 'deadline TASK /by DATE [TIME]'.
+      The correct method is to utter 'deadline TASK /by DATE [TIME]'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: This task has been added to the list.
@@ -39,87 +39,80 @@ Odin: This task has been added to the list.
       Now, 3 tasks stand before you. Choose wisely, for time is ever fleeting.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: /from must come before /to.
-      Your format is flawed. The correct method is to utter 'event TASK /from DATE [TIME] /to DATE [TIME]'.
+Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: '/from not found.
-      Your format is flawed. The correct method is to utter 'event TASK /from DATE [TIME] /to DATE [TIME]'.
+Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: This task has been added to the list.
-        [E][ ] project meeting (from: Mar 11 2025, 17:00 to: Mar 11 2025, 19:00)
-      Now, 4 tasks stand before you. Choose wisely, for time is ever fleeting.
+Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: /from must come before /to.
-      Your format is flawed. The correct method is to utter 'event TASK /from DATE [TIME] /to DATE [TIME]'.
+Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: This task has been added to the list.
-        [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
-      Now, 5 tasks stand before you. Choose wisely, for time is ever fleeting.
+Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: These are the tasks upon the list.
       1. [T][ ] borrow book
       2. [D][ ] return book (by: Mar 11 2025)
       3. [D][ ] return book (by: Mar 11 2025, 21:00)
-      4. [E][ ] project meeting (from: Mar 11 2025, 17:00 to: Mar 11 2025, 19:00)
-      5. [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 5.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
+      The correct method is to utter 'delete TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: This task has been removed from the list.
         [D][ ] return book (by: Mar 11 2025)
-      Now, 4 tasks stand before you. Choose wisely, for time is ever fleeting.
+      Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: This task has been removed from the list.
-        [E][ ] project meeting (from: Mar 11 2025, 17:00 to: Mar 11 2025, 19:00)
-      Now, 3 tasks stand before you. Choose wisely, for time is ever fleeting.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+      The correct method is to utter 'delete TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+      The correct method is to utter 'mark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: Task 1 has been marked as completed. May the next task be approached with equal diligence.
-      [T][X] borrow book
+        [T][X] borrow book
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: Task 3 has been marked as completed. May the next task be approached with equal diligence.
-      [E][X] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+      The correct method is to utter 'mark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+      The correct method is to utter 'mark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+      The correct method is to utter 'unmark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: Task 1 remains unfinished. Let it be revisited with renewed focus and determination.
-      [T][ ] borrow book
+        [T][ ] borrow book
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: These are the tasks upon the list.
       1. [T][ ] borrow book
       2. [D][ ] return book (by: Mar 11 2025, 21:00)
-      3. [E][X] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: Task 3 remains unfinished. Let it be revisited with renewed focus and determination.
-      [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+      The correct method is to utter 'unmark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+      The correct method is to utter 'unmark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: These are the tasks upon the list.
       1. [T][ ] borrow book
       2. [D][ ] return book (by: Mar 11 2025, 21:00)
-      3. [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: The command 'unknown_command' is not supported. Seek the correct path, and your request shall be honored.

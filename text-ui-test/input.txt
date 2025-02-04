@@ -26,4 +26,4 @@ unmark 3
 unmark 4
 list
 unknown_command
-bye
+exit

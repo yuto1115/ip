@@ -1,3 +1,5 @@
+package odin.exception;
+
 import java.util.ArrayList;
 
 public class OdinException extends Exception {
@@ -10,4 +12,4 @@ public class OdinException extends Exception {
         messages.add(this.getMessage());
         return messages;
     }
-};
+}

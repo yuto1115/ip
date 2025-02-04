@@ -1,3 +1,7 @@
+package odin.task;
+
+import odin.parser.DateAndOptionalTime;
+
 import java.util.ArrayList;
 
 public class Event extends Task {
@@ -10,12 +14,12 @@ public class Event extends Task {
     }
 
     @Override
-    public String taskType() {
+    String taskType() {
         return "E";
     }
 
     @Override
-    public ArrayList<String> getTaskRecord() {
+    ArrayList<String> getTaskRecord() {
         ArrayList<String> taskRecord = super.getTaskRecord();
         taskRecord.add(this.from.getOriginalString());
         taskRecord.add(this.to.getOriginalString());
