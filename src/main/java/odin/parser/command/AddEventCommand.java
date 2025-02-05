@@ -7,6 +7,9 @@ import odin.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Class for the command to add an event.
+ */
 public class AddEventCommand extends AddCommand {
     @Override
     public String getCommandName() {

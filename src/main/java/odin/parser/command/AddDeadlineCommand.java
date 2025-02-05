@@ -7,6 +7,9 @@ import odin.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Class for the command to add a deadline.
+ */
 public class AddDeadlineCommand extends AddCommand {
     @Override
     public String getCommandName() {

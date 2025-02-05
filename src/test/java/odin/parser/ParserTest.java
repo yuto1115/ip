@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javafx.util.Pair;
 
@@ -31,7 +32,7 @@ public class ParserTest {
         }
 
         @Override
-        public void addFromTaskRecord(ArrayList<String> taskRecord) throws WrongFormatException {
+        public void addFromTaskRecord(ArrayList<String> taskRecord) {
             fail();
         }
 
@@ -65,7 +66,7 @@ public class ParserTest {
     }
 
     /**
-     * Stub class for TaskList containing only one task, which allows to add only t.odo task
+     * Stub class for TaskList containing only one task, which allows to add only to-do task
      */
     private static class TaskListStubTodo extends TaskListStub {
         @Override
@@ -119,7 +120,7 @@ public class ParserTest {
     public void parseAndHandle_exitCommand() {
         // ok
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("exit"));
+            ArrayList<String> tokens = new ArrayList<>(List.of("exit"));
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(true, p.getKey());
@@ -143,7 +144,7 @@ public class ParserTest {
     public void parseAndHandle_listCommand() {
         // ok
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("list"));
+            ArrayList<String> tokens = new ArrayList<>(List.of("list"));
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
@@ -280,7 +281,7 @@ public class ParserTest {
 
         // bad
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("todo"));
+            ArrayList<String> tokens = new ArrayList<>(List.of("todo"));
             TaskList taskList = new TaskListStubTodo();
             new Parser().parseAndHandle(tokens, taskList);
             fail();

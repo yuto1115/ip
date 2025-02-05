@@ -4,9 +4,19 @@ import odin.parser.DateAndOptionalTime;
 
 import java.util.ArrayList;
 
+/**
+ * Class to represents an event.
+ */
 public class Event extends Task {
     private final DateAndOptionalTime from, to;
 
+    /**
+     * Default constructor.
+     *
+     * @param str Description of the task.
+     * @param from Date&time when the event starts.
+     * @param to Date&time when the event ends.
+     */
     public Event(String str, DateAndOptionalTime from, DateAndOptionalTime to) {
         super(str);
         this.from = from;

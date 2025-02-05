@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class DateAndOptionalTimeTest {
@@ -31,7 +32,7 @@ public class DateAndOptionalTimeTest {
 
         // No date
         try {
-            new DateAndOptionalTime(new ArrayList<>(Arrays.asList("08:00")));
+            new DateAndOptionalTime(new ArrayList<>(List.of("08:00")));
             fail();
         } catch (WrongFormatException e) {
             assertEquals("Date cannot be parsed as yyyy-MM-dd.", e.getMessage());
@@ -82,7 +83,7 @@ public class DateAndOptionalTimeTest {
     public void testToString() {
         // Date only
         try {
-            String str = new DateAndOptionalTime(new ArrayList<>(Arrays.asList("2025-01-01"))).toString();
+            String str = new DateAndOptionalTime(new ArrayList<>(List.of("2025-01-01"))).toString();
             assertEquals("Jan 1 2025", str);
         } catch (WrongFormatException e) {
             fail();
@@ -109,7 +110,7 @@ public class DateAndOptionalTimeTest {
     public void testGetOriginalString() {
         // Date only
         try {
-            String str = new DateAndOptionalTime(new ArrayList<>(Arrays.asList("2025-01-01"))).getOriginalString();
+            String str = new DateAndOptionalTime(new ArrayList<>(List.of("2025-01-01"))).getOriginalString();
             assertEquals("2025-01-01", str);
         } catch (WrongFormatException e) {
             fail();

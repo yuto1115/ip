@@ -2,8 +2,11 @@ package odin.parser.command;
 
 import java.util.ArrayList;
 
+/**
+ * Class for the command to delete a task.
+ */
 public class DeleteCommand extends ManipulateCommand {
-    private String deletedTaskDiscription;
+    private String deletedTaskDescription;
 
     @Override
     public String getCommandName() {
@@ -12,7 +15,7 @@ public class DeleteCommand extends ManipulateCommand {
 
     @Override
     void manipulate() {
-        this.deletedTaskDiscription = this.taskList.getTaskDescription(this.idx - 1);
+        this.deletedTaskDescription = this.taskList.getTaskDescription(this.idx - 1);
         this.taskList.delete(this.idx - 1);
     }
 
@@ -20,8 +23,8 @@ public class DeleteCommand extends ManipulateCommand {
     public ArrayList<String> getMessages() {
         ArrayList<String> messages = new ArrayList<>();
         messages.add("This task has been removed from the list.");
-        messages.add("  " + this.deletedTaskDiscription);
-        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", (Integer) this.taskList.getSize()));
+        messages.add("  " + this.deletedTaskDescription);
+        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", this.taskList.getSize()));
         return messages;
     }
 }

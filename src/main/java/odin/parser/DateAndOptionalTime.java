@@ -9,10 +9,19 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Class to represent date (mandatory) and time (optional).
+ */
 public class DateAndOptionalTime {
     private final LocalDate date;
     private final Optional<LocalTime> time;
 
+    /**
+     * Default constructor.
+     *
+     * @param tokens Tokens that represent date (& time).
+     * @throws WrongFormatException If the given tokens do not follow the correct format.
+     */
     public DateAndOptionalTime(ArrayList<String> tokens) throws WrongFormatException {
         if (tokens.size() != 1 && tokens.size() != 2) {
             throw new WrongFormatException("Date & time must contain one or two tokens.");
@@ -33,6 +42,9 @@ public class DateAndOptionalTime {
         }
     }
 
+    /**
+     * Returns the formatted string that represents the date (& time).
+     */
     @Override
     public String toString() {
         String res = date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
@@ -40,6 +52,9 @@ public class DateAndOptionalTime {
         return res;
     }
 
+    /**
+     * Returns the original string (i.e., before being formatted) that represents the date (& time).
+     */
     public String getOriginalString() {
         String res = date.toString();
         res += time.map(t -> " " + t).orElse("");

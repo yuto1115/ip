@@ -5,20 +5,29 @@ import odin.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Interface that represents an user command.
+ */
 public interface Command {
+    /**
+     * Returns the name of the command, which should be the first token to be inputted when the user calls the command.
+     */
     String getCommandName();
 
+    /**
+     * Returns a String that represents the correct format (usage) of the command.
+     */
     String getCommandFormat();
 
     /**
-     * Parses the tokens (except the first token indicating command name) and do appropriate operations on the given task list.
+     * Parses the given tokens (except the first token indicating the command name) and perform appropriate operations on the given task list.
      *
      * @throws WrongFormatException If the given tokens do not follow the correct format.
      */
     void parseAndHandle(ArrayList<String> tokens, TaskList taskList) throws WrongFormatException;
 
     /**
-     * @return messages to indicate the result of handling the command.
+     * @return Messages to indicate the result of performing the operations.
      */
     ArrayList<String> getMessages();
 }

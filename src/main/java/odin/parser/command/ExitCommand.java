@@ -5,6 +5,9 @@ import odin.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Class for the command to exit.
+ */
 public class ExitCommand implements Command {
     @Override
     public String getCommandName() {

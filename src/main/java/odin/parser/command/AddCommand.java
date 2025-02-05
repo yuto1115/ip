@@ -7,7 +7,7 @@ import odin.task.TaskList;
 import java.util.ArrayList;
 
 /**
- * Abstract class for commands to add new tasks
+ * Abstract class for commands to add new tasks.
  */
 public abstract class AddCommand implements Command {
     private TaskList taskList;
@@ -20,7 +20,7 @@ public abstract class AddCommand implements Command {
     }
 
     /**
-     * Creates a task object described by the given tokens.
+     * Returns a task object described by the given tokens.
      *
      * @throws WrongFormatException If the given tokens do not follow the correct format.
      */
@@ -31,12 +31,12 @@ public abstract class AddCommand implements Command {
         ArrayList<String> messages = new ArrayList<>();
         messages.add("This task has been added to the list.");
         messages.add("  " + this.taskList.getTaskDescription(this.taskList.getSize() - 1));
-        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", (Integer) this.taskList.getSize()));
+        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", this.taskList.getSize()));
         return messages;
     }
 
     /**
-     * Concatenates by spaces the words in the specific range of a list of tokens.
+     * Concatenates by spaces the words in the specified range of the given list of tokens.
      *
      * @param tokens List of tokens.
      * @param l      Start index of the range (inclusive).

@@ -6,27 +6,44 @@ import odin.exception.WrongFormatException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Abstract class to represent a task.
+ */
 public abstract class Task {
     final String name;
     boolean done;
 
+    /**
+     * Default constructor.
+     *
+     * @param name Description of the task.
+     */
     public Task(String name) {
         this.name = name;
         this.done = false;
     }
 
+    /**
+     * Mark the task as done.
+     */
     void markAsDone() {
         this.done = true;
     }
 
+    /**
+     * Mark the task as not-done.
+     */
     void markAsNotDone() {
         this.done = false;
     }
 
+    /**
+     * Returns a single character that represents the type of the task.
+     */
     abstract String taskType();
 
     /**
-     * Returns a list of strings to be saved in record.
+     * Returns task record of the task.
      */
     ArrayList<String> getTaskRecord() {
         ArrayList<String> taskRecord = new ArrayList<>();
@@ -37,9 +54,9 @@ public abstract class Task {
     }
 
     /**
-     * Restores a task object from a list of strings saved in a record.
+     * Restores a task object from given task record.
      *
-     * @throws WrongFormatException If the record does not follow the correct format.
+     * @throws WrongFormatException If the task record does not follow the correct format.
      */
     static Task restoreFromTaskRecord(ArrayList<String> taskRecord) throws WrongFormatException {
         int len = taskRecord.size();
