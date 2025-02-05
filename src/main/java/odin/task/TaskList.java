@@ -82,6 +82,16 @@ public class TaskList {
     }
 
     /**
+     * Returns the name of the task designated by the given index.
+     */
+    public String getTaskName(int idx) {
+        if(idx < 0 || idx >= this.tasks.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return this.tasks.get(idx).name;
+    }
+
+    /**
      * Returns the list of task record of all tasks, each of which is a list of String.
      */
     public ArrayList<ArrayList<String>> getTaskRecordList() {
