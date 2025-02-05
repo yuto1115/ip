@@ -23,9 +23,9 @@ public class AddEventCommand extends AddCommand {
         int from_idx = tokens.indexOf("/from");
         int to_idx = tokens.indexOf("/to");
         if (from_idx == -1) {
-            throw new WrongFormatException("'/from not found.");
+            throw new WrongFormatException("/from not found.");
         } else if (to_idx == -1) {
-            throw new WrongFormatException("'/to not found.");
+            throw new WrongFormatException("/to not found.");
         } else if (from_idx > to_idx) {
             throw new WrongFormatException("/from must come before /to.");
         } else if (from_idx == 0) {
