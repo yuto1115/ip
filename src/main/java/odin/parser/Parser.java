@@ -52,7 +52,7 @@ public class Parser {
                     e.addCorrectFormat(command.getCommandFormat());
                     throw e;
                 }
-                Boolean finished = (Boolean) (command instanceof ExitCommand);
+                Boolean finished = command instanceof ExitCommand;
                 ArrayList<String> messages = command.getMessages();
                 return new Pair<>(finished, messages);
             }

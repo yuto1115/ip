@@ -31,7 +31,7 @@ public class ListCommand implements Command {
         ArrayList<String> messages = new ArrayList<>();
         messages.add("These are the tasks upon the list.");
         for (int i = 0; i < this.taskList.getSize(); i++) {
-            messages.add(String.format("%d. %s", (Integer) (i + 1), this.taskList.getTaskDescription(i)));
+            messages.add(String.format("%d. %s", i + 1, this.taskList.getTaskDescription(i)));
         }
         return messages;
     }

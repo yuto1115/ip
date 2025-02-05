@@ -36,7 +36,7 @@ public class Storage {
                 throw new WrongFormatException("Task record must end with a separator line.");
             }
             fileScanner.close();
-            System.out.println(String.format("(system) Successfully restored the task list from record file %s.", recordFilePath));
+            System.out.printf("(system) Successfully restored the task list from record file %s.%n", recordFilePath);
             System.out.println(SEPARATOR);
             return taskList;
         } catch (FileNotFoundException e) {
@@ -52,7 +52,10 @@ public class Storage {
     public void save(TaskList taskList) {
         File file = new File(this.recordFilePath);
         if (file.getParentFile() != null && !file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+            if(!file.getParentFile().mkdirs()) {
+                System.out.println("(system) An error occurred while saving the task list.\n");
+                return;
+            }
         }
         ArrayList<ArrayList<String>> taskRecordList = taskList.getTaskRecordList();
         try (FileWriter fileWriter = new FileWriter(file, false)) {
@@ -63,7 +66,7 @@ public class Storage {
                 fileWriter.write(SEPARATOR + "\n");
             }
             fileWriter.close();
-            System.out.println(String.format("(system) Successfully saved the task list to record file %s.", recordFilePath));
+            System.out.printf("(system) Successfully saved the task list to record file %s.%n", recordFilePath);
         } catch (IOException e) {
             System.out.println("(system) An error occurred while saving the task list.\n" + e.getMessage());
         }

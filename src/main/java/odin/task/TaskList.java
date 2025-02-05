@@ -5,7 +5,7 @@ import odin.exception.WrongFormatException;
 import java.util.ArrayList;
 
 public class TaskList {
-    ArrayList<Task> tasks;
+    final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
