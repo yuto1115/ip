@@ -4,9 +4,18 @@ import odin.parser.DateAndOptionalTime;
 
 import java.util.ArrayList;
 
+/**
+ * Class to represents a task with deadline.
+ */
 public class Deadline extends Task {
     private final DateAndOptionalTime by;
 
+    /**
+     * Default constructor.
+     *
+     * @param str Description of the task.
+     * @param by Date&time by which the task should be completed.
+     */
     public Deadline(String str, DateAndOptionalTime by) {
         super(str);
         this.by = by;

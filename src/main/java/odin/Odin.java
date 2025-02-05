@@ -10,12 +10,20 @@ import java.util.ArrayList;
 
 import javafx.util.Pair;
 
+/**
+ * Master class of the application.
+ */
 public class Odin {
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
 
+    /**
+     * Default constructor.
+     *
+     * @param recordFilePath The path to the record file.
+     */
     public Odin(String recordFilePath) {
         this.ui = new Ui();
         this.storage = new Storage(recordFilePath);
@@ -23,6 +31,10 @@ public class Odin {
         this.parser = new Parser();
     }
 
+
+    /**
+     * Repeatedly asks user for commands and processes them appropriately.
+     */
     public void run() {
         this.ui.welcome();
 

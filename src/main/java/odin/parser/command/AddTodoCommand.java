@@ -6,6 +6,9 @@ import odin.task.Todo;
 
 import java.util.ArrayList;
 
+/**
+ * Class for the command to add a to-do.
+ */
 public class AddTodoCommand extends AddCommand {
     @Override
     public String getCommandName() {

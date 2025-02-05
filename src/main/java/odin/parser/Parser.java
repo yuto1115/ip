@@ -21,9 +21,9 @@ import javafx.util.Pair;
  */
 public class Parser {
     /**
-     * Parses the tokens and do appropriate operations on the given task list.
+     * Parses the given tokens and perform appropriate operations on the given task list.
      *
-     * @return pair of boolean (true if the conversation is finished, false otherwise) and messages to indicate the result of the operation.
+     * @return Pair of boolean (true if the conversation is finished, false otherwise) and messages to indicate the result of the operation.
      * @throws WrongFormatException If the given tokens do not follow correct formats.
      */
     public Pair<Boolean, ArrayList<String>> parseAndHandle(ArrayList<String> tokens, TaskList taskList) throws WrongFormatException {
@@ -52,7 +52,7 @@ public class Parser {
                     e.addCorrectFormat(command.getCommandFormat());
                     throw e;
                 }
-                Boolean finished = (Boolean) (command instanceof ExitCommand);
+                Boolean finished = command instanceof ExitCommand;
                 ArrayList<String> messages = command.getMessages();
                 return new Pair<>(finished, messages);
             }

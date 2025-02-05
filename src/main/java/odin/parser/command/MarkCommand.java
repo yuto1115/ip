@@ -2,6 +2,9 @@ package odin.parser.command;
 
 import java.util.ArrayList;
 
+/**
+ * Class for the command to mark a task as done.
+ */
 public class MarkCommand extends ManipulateCommand {
     @Override
     public String getCommandName() {

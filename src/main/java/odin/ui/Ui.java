@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class to handle interaction with user.
+ */
 public class Ui {
     private static final String SEPARATOR = "_________________________________________________________________________________________________________";
     private final Scanner scanner;
 
+    /**
+     * Default constructor.
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -27,7 +33,7 @@ public class Ui {
     }
 
     /**
-     * Prints messages to the standard output in a specific format.
+     * Prints messages in a specific format.
      */
     public void speak(ArrayList<String> messages) {
         for (int i = 0; i < messages.size(); i++) {
@@ -45,7 +51,7 @@ public class Ui {
     }
 
     /**
-     * Reads input from the user, and splits it into tokens by spaces.
+     * Reads input from the user, and splits it by spaces into tokens.
      *
      * @return The list of tokens the user inputted.
      */
