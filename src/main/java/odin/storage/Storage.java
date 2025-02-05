@@ -70,7 +70,10 @@ public class Storage {
     public void save(TaskList taskList) {
         File file = new File(this.recordFilePath);
         if (file.getParentFile() != null && !file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+            if(!file.getParentFile().mkdirs()) {
+                System.out.println("(system) An error occurred while saving the task list.\n");
+                return;
+            }
         }
         ArrayList<ArrayList<String>> taskRecordList = taskList.getTaskRecordList();
         try (FileWriter fileWriter = new FileWriter(file, false)) {

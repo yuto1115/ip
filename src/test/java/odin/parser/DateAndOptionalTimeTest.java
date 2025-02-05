@@ -1,6 +1,7 @@
 package odin.parser;
 
 import odin.exception.WrongFormatException;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
