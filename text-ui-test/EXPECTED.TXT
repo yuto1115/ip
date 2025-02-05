@@ -39,41 +39,51 @@ Odin: This task has been added to the list.
       Now, 3 tasks stand before you. Choose wisely, for time is ever fleeting.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
+Odin: /from must come before /to.
+      The correct method is to utter 'event TASK /from DATE [TIME] /to DATE [TIME]'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
+Odin: /from not found.
+      The correct method is to utter 'event TASK /from DATE [TIME] /to DATE [TIME]'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
+Odin: This task has been added to the list.
+        [E][ ] project meeting (from: Mar 11 2025, 17:00 to: Mar 11 2025, 19:00)
+      Now, 4 tasks stand before you. Choose wisely, for time is ever fleeting.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
+Odin: /from must come before /to.
+      The correct method is to utter 'event TASK /from DATE [TIME] /to DATE [TIME]'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The command 'event' is not supported. Seek the correct path, and your request shall be honored.
+Odin: This task has been added to the list.
+        [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
+      Now, 5 tasks stand before you. Choose wisely, for time is ever fleeting.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: These are the tasks upon the list.
       1. [T][ ] borrow book
       2. [D][ ] return book (by: Mar 11 2025)
       3. [D][ ] return book (by: Mar 11 2025, 21:00)
+      4. [E][ ] project meeting (from: Mar 11 2025, 17:00 to: Mar 11 2025, 19:00)
+      5. [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 5.
       The correct method is to utter 'delete TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: This task has been removed from the list.
         [D][ ] return book (by: Mar 11 2025)
-      Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.
+      Now, 4 tasks stand before you. Choose wisely, for time is ever fleeting.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
-      The correct method is to utter 'delete TASK_INDEX'.
+Odin: This task has been removed from the list.
+        [E][ ] project meeting (from: Mar 11 2025, 17:00 to: Mar 11 2025, 19:00)
+      Now, 3 tasks stand before you. Choose wisely, for time is ever fleeting.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
       The correct method is to utter 'mark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
@@ -81,15 +91,15 @@ Odin: Task 1 has been marked as completed. May the next task be approached with 
         [T][X] borrow book
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+Odin: Task 3 has been marked as completed. May the next task be approached with equal diligence.
+        [E][X] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
+_________________________________________________________________________________________________________
+You: _________________________________________________________________________________________________________
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
       The correct method is to utter 'mark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
-      The correct method is to utter 'mark TASK_INDEX'.
-_________________________________________________________________________________________________________
-You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
       The correct method is to utter 'unmark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
@@ -100,19 +110,21 @@ You: ___________________________________________________________________________
 Odin: These are the tasks upon the list.
       1. [T][ ] borrow book
       2. [D][ ] return book (by: Mar 11 2025, 21:00)
+      3. [E][X] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
-      The correct method is to utter 'unmark TASK_INDEX'.
+Odin: Task 3 remains unfinished. Let it be revisited with renewed focus and determination.
+        [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
-Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 2.
+Odin: The task index you speak of is incorrect. There are tasks numbered 1 through 3.
       The correct method is to utter 'unmark TASK_INDEX'.
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: These are the tasks upon the list.
       1. [T][ ] borrow book
       2. [D][ ] return book (by: Mar 11 2025, 21:00)
+      3. [E][ ] holiday (from: Dec 30 2025 to: Jan 4 2026, 00:00)
 _________________________________________________________________________________________________________
 You: _________________________________________________________________________________________________________
 Odin: The command 'unknown_command' is not supported. Seek the correct path, and your request shall be honored.

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class AddEventCommand extends AddCommand {
     @Override
     public String getCommandName() {
-        return "deadline";
+        return "event";
     }
 
     @Override
