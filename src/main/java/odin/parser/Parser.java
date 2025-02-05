@@ -4,6 +4,7 @@ import odin.exception.WrongFormatException;
 import odin.parser.command.Command;
 import odin.parser.command.ExitCommand;
 import odin.parser.command.ListCommand;
+import odin.parser.command.FindCommand;
 import odin.parser.command.AddTodoCommand;
 import odin.parser.command.AddDeadlineCommand;
 import odin.parser.command.AddEventCommand;
@@ -37,6 +38,7 @@ public class Parser {
         Command[] commands = {
                 new ExitCommand(),
                 new ListCommand(),
+                new FindCommand(),
                 new AddTodoCommand(),
                 new AddDeadlineCommand(),
                 new AddEventCommand(),

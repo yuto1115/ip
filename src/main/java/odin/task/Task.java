@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public abstract class Task {
     final String name;
-    boolean done;
+    private boolean done;
 
     /**
      * Default constructor.

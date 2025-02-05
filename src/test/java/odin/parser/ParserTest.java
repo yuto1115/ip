@@ -3,6 +3,7 @@ package odin.parser;
 import odin.exception.WrongFormatException;
 import odin.task.Task;
 import odin.task.TaskList;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,6 +57,12 @@ public class ParserTest {
         public String getTaskDescription(int idx) {
             assertEquals(0, idx);
             return "stub";
+        }
+
+        @Override
+        public String getTaskName(int idx) {
+            assertEquals(0, idx);
+            return "read book";
         }
 
         @Override
@@ -161,6 +168,52 @@ public class ParserTest {
             fail();
         } catch (WrongFormatException e) {
             assertEquals("'list' command should not have additional tokens.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseAndHandle_findCommand() {
+        // ok, found
+        try {
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("find", "book"));
+            TaskList taskList = new TaskListStub();
+            Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
+            assertEquals(false, p.getKey());
+            assertEquals(new ArrayList<>(Arrays.asList("These are the tasks that contain the keyword(s) 'book'.", "1. stub")), p.getValue());
+        } catch (WrongFormatException e) {
+            fail();
+        }
+
+        // ok, found 2
+        try {
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("find", "read", "boo"));
+            TaskList taskList = new TaskListStub();
+            Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
+            assertEquals(false, p.getKey());
+            assertEquals(new ArrayList<>(Arrays.asList("These are the tasks that contain the keyword(s) 'read boo'.", "1. stub")), p.getValue());
+        } catch (WrongFormatException e) {
+            fail();
+        }
+
+        // ok, not found
+        try {
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("find", "real", "book"));
+            TaskList taskList = new TaskListStub();
+            Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
+            assertEquals(false, p.getKey());
+            assertEquals(new ArrayList<>(List.of("There are no tasks that contain the keyword(s) 'real book'.")), p.getValue());
+        } catch (WrongFormatException e) {
+            fail();
+        }
+
+        // bad
+        try {
+            ArrayList<String> tokens = new ArrayList<>(List.of("find"));
+            TaskList taskList = new TaskListStub();
+            new Parser().parseAndHandle(tokens, taskList);
+            fail();
+        } catch (WrongFormatException e) {
+            assertEquals("KEYWORDS cannot be empty.", e.getMessage());
         }
     }
 
