@@ -4,7 +4,7 @@ import odin.parser.DateAndOptionalTime;
 import odin.exception.WrongFormatException;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public abstract class Task {
     final String name;
@@ -63,15 +63,15 @@ public abstract class Task {
             if (len != 4) {
                 throw new WrongFormatException("Number of tokens in a Odin.task record of deadline must be four.");
             }
-            DateAndOptionalTime by = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
+            DateAndOptionalTime by = new DateAndOptionalTime(new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
             task = new Deadline(name, by);
             break;
         case "E":
             if (len != 5) {
                 throw new WrongFormatException("Number of tokens in a Odin.task record of event must be five.");
             }
-            DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(3).split(" "))));
-            DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(List.of(taskRecord.get(4).split(" "))));
+            DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
+            DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(Arrays.asList(taskRecord.get(4).split(" "))));
             task = new Event(name, from, to);
             break;
         default:
