@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public abstract class Task {
     final String name;
-    boolean done;
+    private boolean done;
 
     public Task(String name) {
         this.name = name;
