@@ -17,3 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 /src/data/records.txt
+/text-ui-test/src/data/records.txt
