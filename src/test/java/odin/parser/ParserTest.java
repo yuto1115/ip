@@ -1,11 +1,5 @@
 package odin.parser;
 
-import odin.exception.WrongFormatException;
-import odin.task.Task;
-import odin.task.TaskList;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -13,14 +7,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.util.Pair;
+import odin.exception.WrongFormatException;
+import odin.task.Task;
+import odin.task.TaskList;
 
 public class ParserTest {
     /**
      * Stub TaskList initially containing only one stub task, which does not allow to add new tasks
      */
     private static class TaskListStub extends TaskList {
-        int size = 1;
+        protected int size = 1;
 
         @Override
         public int getSize() {
@@ -179,7 +178,8 @@ public class ParserTest {
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("These are the tasks that contain the keyword(s) 'book'.", "1. stub")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList(
+                    "These are the tasks that contain the keyword(s) 'book'.", "1. stub")), p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
@@ -190,7 +190,8 @@ public class ParserTest {
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("These are the tasks that contain the keyword(s) 'read boo'.", "1. stub")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList(
+                    "These are the tasks that contain the keyword(s) 'read boo'.", "1. stub")), p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
@@ -201,7 +202,8 @@ public class ParserTest {
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(List.of("There are no tasks that contain the keyword(s) 'real book'.")), p.getValue());
+            assertEquals(new ArrayList<>(List.of(
+                    "There are no tasks that contain the keyword(s) 'real book'.")), p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
@@ -225,7 +227,10 @@ public class ParserTest {
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("Task 1 has been marked as completed. May the next task be approached with equal diligence.", "  stub")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList(
+                    "Task 1 has been marked as completed. May the next task be approached with equal diligence.",
+                    "  stub")),
+                    p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
@@ -247,7 +252,8 @@ public class ParserTest {
             new Parser().parseAndHandle(tokens, taskList);
             fail();
         } catch (WrongFormatException e) {
-            assertEquals("The task index you speak of is incorrect. There are tasks numbered 1 through 1.", e.getMessage());
+            assertEquals("The task index you speak of is incorrect. There are tasks numbered 1 through 1.",
+                    e.getMessage());
         }
     }
 
@@ -259,7 +265,9 @@ public class ParserTest {
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("Task 1 remains unfinished. Let it be revisited with renewed focus and determination.", "  stub")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList(
+                    "Task 1 remains unfinished. Let it be revisited with renewed focus and determination.", "  stub")),
+                    p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
@@ -281,7 +289,8 @@ public class ParserTest {
             new Parser().parseAndHandle(tokens, taskList);
             fail();
         } catch (WrongFormatException e) {
-            assertEquals("The task index you speak of is incorrect. There are tasks numbered 1 through 1.", e.getMessage());
+            assertEquals("The task index you speak of is incorrect. There are tasks numbered 1 through 1.",
+                    e.getMessage());
         }
     }
 
@@ -293,7 +302,9 @@ public class ParserTest {
             TaskList taskList = new TaskListStub();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("This task has been removed from the list.", "  stub", "Now, 0 tasks stand before you. Choose wisely, for time is ever fleeting.")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList("This task has been removed from the list.", "  stub",
+                    "Now, 0 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                    p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
@@ -315,7 +326,8 @@ public class ParserTest {
             new Parser().parseAndHandle(tokens, taskList);
             fail();
         } catch (WrongFormatException e) {
-            assertEquals("The task index you speak of is incorrect. There are tasks numbered 1 through 1.", e.getMessage());
+            assertEquals("The task index you speak of is incorrect. There are tasks numbered 1 through 1.",
+                    e.getMessage());
         }
     }
 
@@ -327,7 +339,9 @@ public class ParserTest {
             TaskList taskList = new TaskListStubTodo();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("This task has been added to the list.", "  todo stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList("This task has been added to the list.",
+                    "  todo stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                    p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
@@ -347,18 +361,22 @@ public class ParserTest {
     public void parseAndHandle_addDeadlineCommand() {
         // ok
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("deadline", "read", "book", "/by", "2030-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "deadline", "read", "book", "/by", "2030-01-01", "12:00"));
             TaskList taskList = new TaskListStubDeadline();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("This task has been added to the list.", "  deadline stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList("This task has been added to the list.",
+                    "  deadline stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                    p.getValue());
         } catch (WrongFormatException e) {
             fail();
         }
 
         // bad
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("deadline", "read", "book", "2030-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "deadline", "read", "book", "2030-01-01", "12:00"));
             TaskList taskList = new TaskListStubDeadline();
             new Parser().parseAndHandle(tokens, taskList);
             fail();
@@ -391,11 +409,15 @@ public class ParserTest {
     public void parseAndHandle_addEventCommand() {
         // ok
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("event", "read", "book", "/from", "2030-01-01", "12:00", "/to", "2040-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "event", "read", "book", "/from", "2030-01-01", "12:00", "/to", "2040-01-01", "12:00"));
             TaskList taskList = new TaskListStubEvent();
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
-            assertEquals(new ArrayList<>(Arrays.asList("This task has been added to the list.", "  event stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")), p.getValue());
+            assertEquals(new ArrayList<>(Arrays.asList(
+                    "This task has been added to the list.",
+                    "  event stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                    p.getValue());
         } catch (WrongFormatException e) {
             System.out.println(e.getMessage());
             fail();
@@ -403,7 +425,8 @@ public class ParserTest {
 
         // bad
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("event", "read", "book", "2030-01-01", "12:00", "/to", "2040-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "event", "read", "book", "2030-01-01", "12:00", "/to", "2040-01-01", "12:00"));
             TaskList taskList = new TaskListStubEvent();
             new Parser().parseAndHandle(tokens, taskList);
             fail();
@@ -413,7 +436,8 @@ public class ParserTest {
 
         // bad 2
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("event", "read", "book", "/from", "2030-01-01", "12:00", "2040-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "event", "read", "book", "/from", "2030-01-01", "12:00", "2040-01-01", "12:00"));
             TaskList taskList = new TaskListStubEvent();
             new Parser().parseAndHandle(tokens, taskList);
             fail();
@@ -423,7 +447,8 @@ public class ParserTest {
 
         // bad 3
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("event", "read", "book", "/to", "2030-01-01", "12:00", "/from", "2040-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "event", "read", "book", "/to", "2030-01-01", "12:00", "/from", "2040-01-01", "12:00"));
             TaskList taskList = new TaskListStubEvent();
             new Parser().parseAndHandle(tokens, taskList);
             fail();
@@ -433,7 +458,8 @@ public class ParserTest {
 
         // bad 4
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("event", "/from", "2030-01-01", "12:00", "/to", "2040-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "event", "/from", "2030-01-01", "12:00", "/to", "2040-01-01", "12:00"));
             TaskList taskList = new TaskListStubEvent();
             new Parser().parseAndHandle(tokens, taskList);
             fail();
@@ -443,7 +469,8 @@ public class ParserTest {
 
         // bad 5
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("event", "read", "book", "/from", "/to", "2040-01-01", "12:00"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "event", "read", "book", "/from", "/to", "2040-01-01", "12:00"));
             TaskList taskList = new TaskListStubEvent();
             new Parser().parseAndHandle(tokens, taskList);
             fail();
@@ -453,7 +480,8 @@ public class ParserTest {
 
         // bad 6
         try {
-            ArrayList<String> tokens = new ArrayList<>(Arrays.asList("event", "read", "book", "/from", "2030-01-01", "12:00", "/to"));
+            ArrayList<String> tokens = new ArrayList<>(Arrays.asList(
+                    "event", "read", "book", "/from", "2030-01-01", "12:00", "/to"));
             TaskList taskList = new TaskListStubEvent();
             new Parser().parseAndHandle(tokens, taskList);
             fail();

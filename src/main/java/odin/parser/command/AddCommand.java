@@ -1,10 +1,10 @@
 package odin.parser.command;
 
+import java.util.ArrayList;
+
 import odin.exception.WrongFormatException;
 import odin.task.Task;
 import odin.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Abstract class for commands to add new tasks.
@@ -31,7 +31,8 @@ public abstract class AddCommand implements Command {
         ArrayList<String> messages = new ArrayList<>();
         messages.add("This task has been added to the list.");
         messages.add("  " + this.taskList.getTaskDescription(this.taskList.getSize() - 1));
-        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", this.taskList.getSize()));
+        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.",
+                this.taskList.getSize()));
         return messages;
     }
 

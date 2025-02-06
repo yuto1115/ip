@@ -1,9 +1,9 @@
 package odin.parser.command;
 
+import java.util.ArrayList;
+
 import odin.exception.WrongFormatException;
 import odin.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Interface that represents an user command.
@@ -20,7 +20,8 @@ public interface Command {
     String getCommandFormat();
 
     /**
-     * Parses the given tokens (except the first token indicating the command name) and perform appropriate operations on the given task list.
+     * Parses the given tokens (except the first token indicating the command name) and
+     * perform appropriate operations on the given task list.
      *
      * @throws WrongFormatException If the given tokens do not follow the correct format.
      */

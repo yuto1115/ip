@@ -1,8 +1,5 @@
 package odin.storage;
 
-import odin.exception.WrongFormatException;
-import odin.task.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,11 +7,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import odin.exception.WrongFormatException;
+import odin.task.TaskList;
+
 /**
  * Class to manage a record file to save and load the data of task list.
  */
 public class Storage {
-    private static final String SEPARATOR = "_________________________________________________________________________________________________________";
+    private static final String SEPARATOR =
+            "_________________________________________________________________________________________________________";
     private final String recordFilePath;
 
     /**
@@ -70,7 +71,7 @@ public class Storage {
     public void save(TaskList taskList) {
         File file = new File(this.recordFilePath);
         if (file.getParentFile() != null && !file.getParentFile().exists()) {
-            if(!file.getParentFile().mkdirs()) {
+            if (!file.getParentFile().mkdirs()) {
                 System.out.println("(system) An error occurred while saving the task list.\n");
                 return;
             }

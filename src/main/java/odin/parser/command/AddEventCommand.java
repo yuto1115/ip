@@ -1,11 +1,11 @@
 package odin.parser.command;
 
+import java.util.ArrayList;
+
 import odin.exception.WrongFormatException;
 import odin.parser.DateAndOptionalTime;
 import odin.task.Event;
 import odin.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Class for the command to add an event.
@@ -23,21 +23,21 @@ public class AddEventCommand extends AddCommand {
 
     @Override
     Task parseToTask(ArrayList<String> tokens) throws WrongFormatException {
-        int from_idx = tokens.indexOf("/from");
-        int to_idx = tokens.indexOf("/to");
-        if (from_idx == -1) {
+        int fromIdx = tokens.indexOf("/from");
+        int toIdx = tokens.indexOf("/to");
+        if (fromIdx == -1) {
             throw new WrongFormatException("/from not found.");
-        } else if (to_idx == -1) {
+        } else if (toIdx == -1) {
             throw new WrongFormatException("/to not found.");
-        } else if (from_idx > to_idx) {
+        } else if (fromIdx > toIdx) {
             throw new WrongFormatException("/from must come before /to.");
-        } else if (from_idx == 0) {
+        } else if (fromIdx == 0) {
             throw new WrongFormatException("TASK cannot be empty.");
-        } else if (from_idx + 1 == to_idx || to_idx == tokens.size() - 1) {
+        } else if (fromIdx + 1 == toIdx || toIdx == tokens.size() - 1) {
             throw new WrongFormatException("DATE cannot be empty.");
         }
-        DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(tokens.subList(from_idx + 1, to_idx)));
-        DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(tokens.subList(to_idx + 1, tokens.size())));
-        return new Event(concatBySpace(tokens, 0, from_idx), from, to);
+        DateAndOptionalTime from = new DateAndOptionalTime(new ArrayList<>(tokens.subList(fromIdx + 1, toIdx)));
+        DateAndOptionalTime to = new DateAndOptionalTime(new ArrayList<>(tokens.subList(toIdx + 1, tokens.size())));
+        return new Event(concatBySpace(tokens, 0, fromIdx), from, to);
     }
 }

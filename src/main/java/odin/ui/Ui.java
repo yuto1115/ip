@@ -8,7 +8,8 @@ import java.util.Scanner;
  * Class to handle interaction with user.
  */
 public class Ui {
-    private static final String SEPARATOR = "_________________________________________________________________________________________________________";
+    private static final String SEPARATOR =
+            "_________________________________________________________________________________________________________";
     private final Scanner scanner;
 
     /**
