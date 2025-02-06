@@ -24,7 +24,8 @@ public class DeleteCommand extends ManipulateCommand {
         ArrayList<String> messages = new ArrayList<>();
         messages.add("This task has been removed from the list.");
         messages.add("  " + this.deletedTaskDescription);
-        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.", this.taskList.getSize()));
+        messages.add(String.format("Now, %d tasks stand before you. Choose wisely, for time is ever fleeting.",
+                this.taskList.getSize()));
         return messages;
     }
 }

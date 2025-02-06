@@ -1,13 +1,13 @@
 package odin.parser;
 
-import odin.exception.WrongFormatException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
+
+import odin.exception.WrongFormatException;
 
 /**
  * Class to represent date (mandatory) and time (optional).

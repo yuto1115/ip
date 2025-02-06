@@ -1,10 +1,10 @@
 package odin.parser.command;
 
+import java.util.ArrayList;
+
 import odin.exception.WrongFormatException;
 import odin.task.Task;
 import odin.task.Todo;
-
-import java.util.ArrayList;
 
 /**
  * Class for the command to add a to-do.

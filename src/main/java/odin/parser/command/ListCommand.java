@@ -1,9 +1,9 @@
 package odin.parser.command;
 
+import java.util.ArrayList;
+
 import odin.exception.WrongFormatException;
 import odin.task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Class for the command to list all tasks.

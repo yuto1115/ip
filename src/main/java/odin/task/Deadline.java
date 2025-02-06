@@ -1,8 +1,8 @@
 package odin.task;
 
-import odin.parser.DateAndOptionalTime;
-
 import java.util.ArrayList;
+
+import odin.parser.DateAndOptionalTime;
 
 /**
  * Class to represents a task with deadline.

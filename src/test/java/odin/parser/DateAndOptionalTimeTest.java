@@ -1,15 +1,15 @@
 package odin.parser;
 
-import odin.exception.WrongFormatException;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import odin.exception.WrongFormatException;
 
 
 public class DateAndOptionalTimeTest {
@@ -119,7 +119,8 @@ public class DateAndOptionalTimeTest {
 
         // Date and time
         try {
-            String str = new DateAndOptionalTime(new ArrayList<>(Arrays.asList("2025-12-10", "13:20"))).getOriginalString();
+            String str = new DateAndOptionalTime(new ArrayList<>(Arrays.asList("2025-12-10", "13:20")))
+                    .getOriginalString();
             assertEquals("2025-12-10 13:20", str);
         } catch (WrongFormatException e) {
             fail();
@@ -127,7 +128,8 @@ public class DateAndOptionalTimeTest {
 
         // Date and time with seconds
         try {
-            String str = new DateAndOptionalTime(new ArrayList<>(Arrays.asList("2025-12-10", "13:20:15"))).getOriginalString();
+            String str = new DateAndOptionalTime(new ArrayList<>(Arrays.asList("2025-12-10", "13:20:15")))
+                    .getOriginalString();
             assertEquals("2025-12-10 13:20:15", str);
         } catch (WrongFormatException e) {
             fail();

@@ -1,14 +1,15 @@
 package odin.task;
 
-import odin.parser.DateAndOptionalTime;
-
 import java.util.ArrayList;
+
+import odin.parser.DateAndOptionalTime;
 
 /**
  * Class to represents an event.
  */
 public class Event extends Task {
-    private final DateAndOptionalTime from, to;
+    private final DateAndOptionalTime from;
+    private final DateAndOptionalTime to;
 
     /**
      * Default constructor.

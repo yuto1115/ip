@@ -1,14 +1,13 @@
 package odin;
 
-import odin.exception.WrongFormatException;
-import odin.parser.Parser;
-import odin.task.TaskList;
-import odin.ui.Ui;
-import odin.storage.Storage;
-
 import java.util.ArrayList;
 
 import javafx.util.Pair;
+import odin.exception.WrongFormatException;
+import odin.parser.Parser;
+import odin.storage.Storage;
+import odin.task.TaskList;
+import odin.ui.Ui;
 
 /**
  * Master class of the application.

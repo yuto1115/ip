@@ -1,8 +1,8 @@
 package odin.task;
 
-import odin.exception.WrongFormatException;
-
 import java.util.ArrayList;
+
+import odin.exception.WrongFormatException;
 
 /**
  * Class to manage a list of tasks.
@@ -45,17 +45,17 @@ public class TaskList {
      * Mark as done the task designated by the given index.
      */
     public void markAsDone(int idx) {
-       if(idx < 0 || idx >= this.tasks.size()) {
-           throw new IndexOutOfBoundsException();
-       }
-       this.tasks.get(idx).markAsDone();
+        if (idx < 0 || idx >= this.tasks.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        this.tasks.get(idx).markAsDone();
     }
 
     /**
      * Mark as not-done the task designated by the given index.
      */
     public void markAsNotDone(int idx) {
-        if(idx < 0 || idx >= this.tasks.size()) {
+        if (idx < 0 || idx >= this.tasks.size()) {
             throw new IndexOutOfBoundsException();
         }
         this.tasks.get(idx).markAsNotDone();
@@ -65,7 +65,7 @@ public class TaskList {
      * Delete the task designated by the given index.
      */
     public void delete(int idx) {
-        if(idx < 0 || idx >= this.tasks.size()) {
+        if (idx < 0 || idx >= this.tasks.size()) {
             throw new IndexOutOfBoundsException();
         }
         this.tasks.remove(idx);
@@ -75,7 +75,7 @@ public class TaskList {
      * Returns the description of the task designated by the given index.
      */
     public String getTaskDescription(int idx) {
-        if(idx < 0 || idx >= this.tasks.size()) {
+        if (idx < 0 || idx >= this.tasks.size()) {
             throw new IndexOutOfBoundsException();
         }
         return this.tasks.get(idx).toString();
@@ -85,7 +85,7 @@ public class TaskList {
      * Returns the name of the task designated by the given index.
      */
     public String getTaskName(int idx) {
-        if(idx < 0 || idx >= this.tasks.size()) {
+        if (idx < 0 || idx >= this.tasks.size()) {
             throw new IndexOutOfBoundsException();
         }
         return this.tasks.get(idx).name;
