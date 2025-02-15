@@ -11,7 +11,7 @@ import odin.parser.DateAndOptionalTime;
  */
 public abstract class Task {
     final String name;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Default constructor.
@@ -20,21 +20,21 @@ public abstract class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Mark the task as done.
      */
     void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Mark the task as not-done.
      */
     void markAsNotDone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Task {
         ArrayList<String> taskRecord = new ArrayList<>();
         taskRecord.add(this.taskType());
         taskRecord.add(this.name);
-        taskRecord.add(this.done ? "1" : "0");
+        taskRecord.add(this.isDone ? "1" : "0");
         return taskRecord;
     }
 
@@ -108,7 +108,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String res = String.format("[%s][", this.taskType());
-        if (this.done) {
+        if (this.isDone) {
             res += "X";
         } else {
             res += " ";
