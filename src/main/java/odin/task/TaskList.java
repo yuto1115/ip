@@ -25,14 +25,14 @@ public class TaskList {
     }
 
     /**
-     * Add a new task to the back of the list.
+     * Adds a new task to the back of the list.
      */
     public void add(Task task) {
         this.tasks.add(task);
     }
 
     /**
-     * Add a new task, which is represented by the given task record, to the back of the list.
+     * Adds a new task, which is represented by the given task record, to the back of the list.
      *
      * @throws WrongFormatException If the given task record does not follow the correct format.
      */
@@ -42,7 +42,7 @@ public class TaskList {
     }
 
     /**
-     * Mark as done the task designated by the given index.
+     * Marks as done the task designated by the given index.
      */
     public void markAsDone(int idx) {
         if (idx < 0 || idx >= this.tasks.size()) {
@@ -52,7 +52,7 @@ public class TaskList {
     }
 
     /**
-     * Mark as not-done the task designated by the given index.
+     * Marks as not-done the task designated by the given index.
      */
     public void markAsNotDone(int idx) {
         if (idx < 0 || idx >= this.tasks.size()) {
@@ -62,7 +62,7 @@ public class TaskList {
     }
 
     /**
-     * Delete the task designated by the given index.
+     * Deletes the task designated by the given index.
      */
     public void delete(int idx) {
         if (idx < 0 || idx >= this.tasks.size()) {

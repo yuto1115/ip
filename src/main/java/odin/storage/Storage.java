@@ -64,7 +64,7 @@ public class Storage {
     }
 
     /**
-     * Save the data of task list to the record file.
+     * Saves the data of task list to the record file.
      *
      * @param taskList Task list to be saved.
      */

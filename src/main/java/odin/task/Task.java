@@ -24,14 +24,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as not-done.
+     * Marks the task as not-done.
      */
     void markAsNotDone() {
         this.isDone = false;
