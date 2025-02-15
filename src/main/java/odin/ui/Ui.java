@@ -1,73 +1,138 @@
 package odin.ui;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Pair;
+import odin.Master;
 
 /**
- * Class to handle interaction with user.
+ * The class to interact with user through GUI.
  */
-public class Ui {
-    private static final String SEPARATOR =
-            "_________________________________________________________________________________________________________";
-    private final Scanner scanner;
+public class Ui extends Application {
+    private ScrollPane scrollPane;
+    private VBox dialogContainer;
+    private TextField userInput;
+    private Button sendButton;
+    private AnchorPane mainLayout;
+    private Scene scene;
+    private Stage stage;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image odinImage = new Image(this.getClass().getResourceAsStream("/images/Odin.png"));
+    private Master master;
 
-    /**
-     * Default constructor.
-     */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
+    @Override
+    public void start(Stage stage) {
+        this.stage = stage;
+        master = new Master();
+        makeGui();
+        printWelcomeMessage();
     }
 
-    /**
-     * Prints a message to welcome user.
-     */
-    public void welcome() {
-        speak("I am Odin, god of wisdom.", "What knowledge do you seek?");
+    @Override
+    public void stop() {
+        master.finish();
+        printExitMessage();
     }
 
-    /**
-     * Prints a message to finish conversation.
-     */
-    public void exit() {
-        speak("Bye. We shall meet again.");
+    private void makeGui() {
+        setUpComponents();
+        formatWindow();
+        addEventHandlers();
     }
 
-    /**
-     * Prints messages in a specific format.
-     */
-    public void speak(ArrayList<String> messages) {
-        for (int i = 0; i < messages.size(); i++) {
-            if (i == 0) {
-                System.out.println("Odin: " + messages.get(i));
-            } else {
-                System.out.println("      " + messages.get(i));
-            }
+    private void setUpComponents() {
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void formatWindow() {
+        stage.setTitle("Odin");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(325.0);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
+
+    private void addEventHandlers() {
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
+
+        //Scroll down to the end every time dialogContainer's height changes
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+    private void handleUserInput() {
+        String input = userInput.getText();
+        userInput.clear();
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+
+        Pair<Boolean, ArrayList<String>> res = master.handleUserInput(input);
+        if (res.getKey()) {
+            Platform.exit();
         }
-        System.out.println(SEPARATOR);
-    }
 
-    public void speak(String... messages) {
-        speak(new ArrayList<>(List.of(messages)));
-    }
-
-    /**
-     * Reads input from the user, and splits it by spaces into tokens.
-     *
-     * @return The list of tokens the user inputted.
-     */
-    public ArrayList<String> listen() {
-        ArrayList<String> tokens = new ArrayList<>();
-        while (tokens.isEmpty()) {
-            System.out.print("You: ");
-            String input = scanner.nextLine();
-            for (String token : input.split(" ")) {
-                if (!token.isEmpty()) {
-                    tokens.add(token);
-                }
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < res.getValue().size(); i++) {
+            if (i > 0) {
+                output.append("\n");
             }
+            output.append(res.getValue().get(i));
         }
-        System.out.println(SEPARATOR);
-        return tokens;
+        dialogContainer.getChildren().addAll(DialogBox.getSystemDialog(output.toString(), odinImage));
+    }
+
+    private void printWelcomeMessage() {
+        dialogContainer.getChildren().addAll(DialogBox.getSystemDialog(
+                "I am Odin, god of wisdom.\nWhat knowledge do you seek?", odinImage));
+    }
+
+    private void printExitMessage() {
+        dialogContainer.getChildren().addAll(DialogBox.getSystemDialog(
+                "Bye. We shall meet again.", odinImage));
     }
 }

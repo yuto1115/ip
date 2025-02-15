@@ -30,7 +30,7 @@ public class Parser {
     public Pair<Boolean, ArrayList<String>> parseAndHandle(ArrayList<String> tokens, TaskList taskList)
             throws WrongFormatException {
         if (tokens.isEmpty()) {
-            throw new RuntimeException("parseAndHandle: tokens is empty");
+            throw new WrongFormatException("Input cannot be empty.");
         }
 
         String commandName = tokens.get(0).toLowerCase();
