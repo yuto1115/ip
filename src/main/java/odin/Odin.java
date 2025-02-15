@@ -9,9 +9,9 @@ import odin.storage.Storage;
 import odin.task.TaskList;
 
 /**
- * Master class of the application.
+ * The master class of the backend application.
  */
-public class Master {
+public class Odin {
     private static final String RECORD_FILE_PATH = "./src/data/records.txt";
     private final Storage storage;
     private final TaskList taskList;
@@ -20,7 +20,7 @@ public class Master {
     /**
      * Default constructor.
      */
-    public Master() {
+    public Odin() {
         this.storage = new Storage(RECORD_FILE_PATH);
         this.taskList = this.storage.load();
         this.parser = new Parser();
