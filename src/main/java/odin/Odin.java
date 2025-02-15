@@ -7,54 +7,60 @@ import odin.exception.WrongFormatException;
 import odin.parser.Parser;
 import odin.storage.Storage;
 import odin.task.TaskList;
-import odin.ui.Ui;
 
 /**
- * Master class of the application.
+ * The master class of the backend application.
  */
 public class Odin {
-    private final Ui ui;
+    private static final String RECORD_FILE_PATH = "./src/data/records.txt";
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
 
     /**
      * Default constructor.
-     *
-     * @param recordFilePath The path to the record file.
      */
-    public Odin(String recordFilePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(recordFilePath);
+    public Odin() {
+        this.storage = new Storage(RECORD_FILE_PATH);
         this.taskList = this.storage.load();
         this.parser = new Parser();
     }
 
+    /**
+     * Handle a new user input.
+     *
+     * @param input Input from the user.
+     * @return Pair of boolean, indicating whether the conversation has finished,
+     *         and messages to respond to the input.
+     */
+    public Pair<Boolean, ArrayList<String>> handleUserInput(String input) {
+        ArrayList<String> tokens = tokenize(input);
+        try {
+            return this.parser.parseAndHandle(tokens, this.taskList);
+        } catch (WrongFormatException e) {
+            return new Pair<>(false, e.getMessageList());
+        }
+    }
 
     /**
-     * Repeatedly asks user for commands and processes them appropriately.
+     * Finish the application.
      */
-    public void run() {
-        this.ui.welcome();
-
-        while (true) {
-            ArrayList<String> tokens = this.ui.listen();
-            try {
-                Pair<Boolean, ArrayList<String>> result = this.parser.parseAndHandle(tokens, this.taskList);
-                if (result.getKey()) {
-                    break;
-                }
-                this.ui.speak(result.getValue());
-            } catch (WrongFormatException e) {
-                this.ui.speak(e.getMessageList());
-            }
-        }
-
-        this.ui.exit();
+    public void finish() {
         this.storage.save(this.taskList);
     }
 
-    public static void main(String[] args) {
-        new Odin("./src/data/records.txt").run();
+    /**
+     * Split by spaces the given string into tokens.
+     *
+     * @return List of tokens.
+     */
+    private ArrayList<String> tokenize(String str) {
+        ArrayList<String> tokens = new ArrayList<>();
+        for (String token : str.split(" ")) {
+            if (!token.isEmpty()) {
+                tokens.add(token);
+            }
+        }
+        return tokens;
     }
 }

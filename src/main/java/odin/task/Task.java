@@ -61,7 +61,7 @@ public abstract class Task {
     static Task restoreFromTaskRecord(ArrayList<String> taskRecord) throws WrongFormatException {
         int len = taskRecord.size();
         if (len < 3) {
-            throw new WrongFormatException("Number of tokens in a Odin.task record must be at least three.");
+            throw new WrongFormatException("Number of tokens in a task record must be at least three.");
         }
 
         String type = taskRecord.get(0);
@@ -72,13 +72,13 @@ public abstract class Task {
         switch (type) {
         case "T":
             if (len != 3) {
-                throw new WrongFormatException("Number of tokens in a Odin.task record of todo must be three.");
+                throw new WrongFormatException("Number of tokens in a task record of todo must be three.");
             }
             task = new Todo(name);
             break;
         case "D":
             if (len != 4) {
-                throw new WrongFormatException("Number of tokens in a Odin.task record of deadline must be four.");
+                throw new WrongFormatException("Number of tokens in a task record of deadline must be four.");
             }
             DateAndOptionalTime by = new DateAndOptionalTime(
                     new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
@@ -86,7 +86,7 @@ public abstract class Task {
             break;
         case "E":
             if (len != 5) {
-                throw new WrongFormatException("Number of tokens in a Odin.task record of event must be five.");
+                throw new WrongFormatException("Number of tokens in a task record of event must be five.");
             }
             DateAndOptionalTime from = new DateAndOptionalTime(
                     new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
@@ -95,7 +95,7 @@ public abstract class Task {
             task = new Event(name, from, to);
             break;
         default:
-            throw new WrongFormatException("Unknown Odin.task type in a Odin.task record.");
+            throw new WrongFormatException("Unknown task type in a task record.");
         }
 
         if (isDone.equals("1")) {
