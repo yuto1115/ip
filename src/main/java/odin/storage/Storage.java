@@ -51,7 +51,6 @@ public class Storage {
             }
             fileScanner.close();
             System.out.printf("(system) Successfully restored the task list from record file %s.%n", recordFilePath);
-            System.out.println(SEPARATOR);
             return taskList;
         } catch (FileNotFoundException e) {
             System.out.println("(system) Record file not found. Initialising with an empty task list.");
