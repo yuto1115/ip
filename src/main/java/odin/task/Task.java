@@ -54,7 +54,7 @@ public abstract class Task {
     }
 
     /**
-     * Restores a task object from given task record.
+     * Restores a task object from the given task record.
      *
      * @throws WrongFormatException If the task record does not follow the correct format.
      */
@@ -65,44 +65,65 @@ public abstract class Task {
         }
 
         String type = taskRecord.get(0);
-        String name = taskRecord.get(1);
+
+        Task task = switch (type) {
+        case "T" -> restoreTodo(taskRecord);
+        case "D" -> restoreDeadline(taskRecord);
+        case "E" -> restoreEvent(taskRecord);
+        default -> throw new WrongFormatException("Unknown task type in a task record.");
+        };
+
         String isDone = taskRecord.get(2);
-        Task task;
-
-        switch (type) {
-        case "T":
-            if (len != 3) {
-                throw new WrongFormatException("Number of tokens in a task record of todo must be three.");
-            }
-            task = new Todo(name);
-            break;
-        case "D":
-            if (len != 4) {
-                throw new WrongFormatException("Number of tokens in a task record of deadline must be four.");
-            }
-            DateAndOptionalTime by = new DateAndOptionalTime(
-                    new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
-            task = new Deadline(name, by);
-            break;
-        case "E":
-            if (len != 5) {
-                throw new WrongFormatException("Number of tokens in a task record of event must be five.");
-            }
-            DateAndOptionalTime from = new DateAndOptionalTime(
-                    new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
-            DateAndOptionalTime to = new DateAndOptionalTime(
-                    new ArrayList<>(Arrays.asList(taskRecord.get(4).split(" "))));
-            task = new Event(name, from, to);
-            break;
-        default:
-            throw new WrongFormatException("Unknown task type in a task record.");
-        }
-
         if (isDone.equals("1")) {
             task.markAsDone();
         }
 
         return task;
+    }
+
+    /**
+     * Restores a to-do object from the given task record.
+     *
+     * @throws WrongFormatException If the task record does not follow the correct format.
+     */
+    private static Todo restoreTodo(ArrayList<String> taskRecord) throws WrongFormatException {
+        if (taskRecord.size() != 3) {
+            throw new WrongFormatException("Number of tokens in a task record of todo must be three.");
+        }
+        String name = taskRecord.get(1);
+        return new Todo(name);
+    }
+
+    /**
+     * Restores a deadline object from the given task record.
+     *
+     * @throws WrongFormatException If the task record does not follow the correct format.
+     */
+    private static Deadline restoreDeadline(ArrayList<String> taskRecord) throws WrongFormatException {
+        if (taskRecord.size() != 4) {
+            throw new WrongFormatException("Number of tokens in a task record of deadline must be four.");
+        }
+        String name = taskRecord.get(1);
+        DateAndOptionalTime by = new DateAndOptionalTime(
+                new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
+        return new Deadline(name, by);
+    }
+
+    /**
+     * Restores an event object from the given task record.
+     *
+     * @throws WrongFormatException If the task record does not follow the correct format.
+     */
+    private static Event restoreEvent(ArrayList<String> taskRecord) throws WrongFormatException {
+        if (taskRecord.size() != 5) {
+            throw new WrongFormatException("Number of tokens in a task record of event must be five.");
+        }
+        String name = taskRecord.get(1);
+        DateAndOptionalTime from = new DateAndOptionalTime(
+                new ArrayList<>(Arrays.asList(taskRecord.get(3).split(" "))));
+        DateAndOptionalTime to = new DateAndOptionalTime(
+                new ArrayList<>(Arrays.asList(taskRecord.get(4).split(" "))));
+        return new Event(name, from, to);
     }
 
     @Override
