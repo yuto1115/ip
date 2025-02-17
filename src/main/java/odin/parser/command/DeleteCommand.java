@@ -15,6 +15,7 @@ public class DeleteCommand extends ManipulateCommand {
 
     @Override
     void manipulate() {
+        assert 1 <= this.idx && this.idx <= taskList.getSize() : "index should be between 1 and the size of task list";
         this.deletedTaskDescription = this.taskList.getTaskDescription(this.idx - 1);
         this.taskList.delete(this.idx - 1);
     }

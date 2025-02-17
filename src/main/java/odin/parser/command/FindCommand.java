@@ -54,6 +54,7 @@ public class FindCommand implements Command {
             messages.add(String.format("These are the tasks that contain the keyword(s) '%s'.", this.pattern));
             int j = 1;
             for (int i : this.matchIndexes) {
+                assert 0 <= i && i < this.taskList.getSize() : "index should be between 0 and size minus 1";
                 messages.add(String.format("%d. %s", j, this.taskList.getTaskDescription(i)));
                 j += 1;
             }

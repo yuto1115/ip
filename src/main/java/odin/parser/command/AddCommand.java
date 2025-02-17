@@ -45,9 +45,7 @@ public abstract class AddCommand implements Command {
      * @return String obtained by concatenating the tokens with spaces in between.
      */
     protected static String concatBySpace(ArrayList<String> tokens, int l, int r) {
-        if (!(0 <= l && l < r && r <= tokens.size())) {
-            throw new RuntimeException("concatBySpace: invalid range");
-        }
+        assert 0 <= l && l < r && r <= tokens.size() : "indexes should represent a valid range";
         StringBuilder sb = new StringBuilder();
         for (int i = l; i < r; i++) {
             if (i > l) {
