@@ -9,26 +9,38 @@ import odin.exception.WrongFormatException;
  */
 public class TaskList {
     final ArrayList<Task> tasks;
+    final ArrayList<TaskListChangeHistory> changeHistory;
 
     /**
      * Default constructor.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        this.changeHistory = new ArrayList<>();
     }
 
     /**
      * Returns the number of tasks that are currently registered in the list.
      */
     public int getSize() {
-        return tasks.size();
+        return this.tasks.size();
+    }
+
+    /**
+     * Adds a new task to the designated position.
+     */
+    public void add(int pos, Task task) {
+        assert 0 <= pos && pos <= this.tasks.size()
+                : "pos should be between 0 and the size ot task list";
+        this.tasks.add(pos, task);
+        this.changeHistory.add(TaskListChangeHistory.getHistoryForAdd(pos));
     }
 
     /**
      * Adds a new task to the back of the list.
      */
     public void add(Task task) {
-        this.tasks.add(task);
+        add(this.tasks.size(), task);
     }
 
     /**
@@ -49,6 +61,7 @@ public class TaskList {
             throw new IndexOutOfBoundsException();
         }
         this.tasks.get(idx).markAsDone();
+        this.changeHistory.add(TaskListChangeHistory.getHistoryForMark(idx));
     }
 
     /**
@@ -59,6 +72,7 @@ public class TaskList {
             throw new IndexOutOfBoundsException();
         }
         this.tasks.get(idx).markAsNotDone();
+        this.changeHistory.add(TaskListChangeHistory.getHistoryForUnmark(idx));
     }
 
     /**
@@ -68,7 +82,8 @@ public class TaskList {
         if (idx < 0 || idx >= this.tasks.size()) {
             throw new IndexOutOfBoundsException();
         }
-        this.tasks.remove(idx);
+        Task deletedTask = this.tasks.remove(idx);
+        this.changeHistory.add(TaskListChangeHistory.getHistoryForDelete(deletedTask, idx));
     }
 
     /**
@@ -92,6 +107,16 @@ public class TaskList {
     }
 
     /**
+     * Checks if the task designated by the given index is marked as done.
+     */
+    public boolean checkIfDone(int idx) {
+        if (idx < 0 || idx >= this.tasks.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return this.tasks.get(idx).checkIfDone();
+    }
+
+    /**
      * Returns the list of task record of all tasks, each of which is a list of String.
      */
     public ArrayList<ArrayList<String>> getTaskRecordList() {
@@ -100,5 +125,27 @@ public class TaskList {
             taskRecordList.add(task.getTaskRecord());
         }
         return taskRecordList;
+    }
+
+    /**
+     * Returns the size of the current change history.
+     */
+    public int getHistorySize() {
+        return this.changeHistory.size();
+    }
+
+    /**
+     * Reverts the change that is on top of the current change history,
+     *  and deletes that change from the history.
+     *
+     * @return A system message to describe the revert operation.
+     */
+    public String undo() {
+        assert !this.changeHistory.isEmpty() : "change history should not be empty";
+        TaskListChangeHistory revertedChange = this.changeHistory.remove(this.changeHistory.size() - 1);
+        String message = TaskListChangeHistory.revertChange(this, revertedChange);
+        // Need to remove the change history created by this undo operation
+        this.changeHistory.remove(this.changeHistory.size() - 1);
+        return message;
     }
 }

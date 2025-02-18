@@ -38,6 +38,13 @@ public abstract class Task {
     }
 
     /**
+     * Checks if the task is marked as done.
+     */
+    boolean checkIfDone() {
+        return this.isDone;
+    }
+
+    /**
      * Returns a single character that represents the type of the task.
      */
     abstract String taskType();

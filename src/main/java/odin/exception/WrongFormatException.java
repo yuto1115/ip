@@ -32,7 +32,7 @@ public class WrongFormatException extends OdinException {
     public ArrayList<String> getMessageList() {
         ArrayList<String> messages = super.getMessageList();
         if (this.correctFormat.isPresent()) {
-            messages.add(String.format("The correct method is to utter '%s'.", this.correctFormat.orElse("")));
+            messages.add(String.format("Usage: '%s'", this.correctFormat.orElse("")));
         }
         return messages;
     }
