@@ -18,6 +18,8 @@ public class ParserTest {
     /**
      * Stub TaskList initially containing only one stub task, which does not allow to add new tasks
      */
+    private static boolean isCheckingMarkCommand;
+
     private static class TaskListStub extends TaskList {
         protected int size = 1;
 
@@ -68,6 +70,12 @@ public class ParserTest {
         public ArrayList<ArrayList<String>> getTaskRecordList() {
             fail();
             return new ArrayList<>();
+        }
+
+        @Override
+        public boolean checkIfDone(int idx) {
+            assertEquals(0, idx);
+            return !isCheckingMarkCommand;
         }
     }
 
@@ -221,6 +229,8 @@ public class ParserTest {
 
     @Test
     public void parseAndHandle_markCommand() {
+        isCheckingMarkCommand = true;
+
         // ok
         try {
             ArrayList<String> tokens = new ArrayList<>(Arrays.asList("mark", "1"));
@@ -228,8 +238,9 @@ public class ParserTest {
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
             assertEquals(new ArrayList<>(Arrays.asList(
-                    "Task 1 has been marked as completed. May the next task be approached with equal diligence.",
-                    "  stub")),
+                            "Task 1 has been marked as completed."
+                                    + " May the next task be approached with equal diligence.",
+                            "  stub")),
                     p.getValue());
         } catch (WrongFormatException e) {
             fail();
@@ -259,6 +270,8 @@ public class ParserTest {
 
     @Test
     public void parseAndHandle_unmarkCommand() {
+        isCheckingMarkCommand = false;
+
         // ok
         try {
             ArrayList<String> tokens = new ArrayList<>(Arrays.asList("unmark", "1"));
@@ -266,7 +279,8 @@ public class ParserTest {
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
             assertEquals(new ArrayList<>(Arrays.asList(
-                    "Task 1 remains unfinished. Let it be revisited with renewed focus and determination.", "  stub")),
+                            "Task 1 remains unfinished."
+                                    + " Let it be revisited with renewed focus and determination.", "  stub")),
                     p.getValue());
         } catch (WrongFormatException e) {
             fail();
@@ -303,7 +317,7 @@ public class ParserTest {
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
             assertEquals(new ArrayList<>(Arrays.asList("This task has been removed from the list.", "  stub",
-                    "Now, 0 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                            "Now, 0 tasks stand before you. Choose wisely, for time is ever fleeting.")),
                     p.getValue());
         } catch (WrongFormatException e) {
             fail();
@@ -340,7 +354,7 @@ public class ParserTest {
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
             assertEquals(new ArrayList<>(Arrays.asList("This task has been added to the list.",
-                    "  todo stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                            "  todo stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
                     p.getValue());
         } catch (WrongFormatException e) {
             fail();
@@ -367,7 +381,8 @@ public class ParserTest {
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
             assertEquals(new ArrayList<>(Arrays.asList("This task has been added to the list.",
-                    "  deadline stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                            "  deadline stub",
+                            "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
                     p.getValue());
         } catch (WrongFormatException e) {
             fail();
@@ -415,8 +430,9 @@ public class ParserTest {
             Pair<Boolean, ArrayList<String>> p = new Parser().parseAndHandle(tokens, taskList);
             assertEquals(false, p.getKey());
             assertEquals(new ArrayList<>(Arrays.asList(
-                    "This task has been added to the list.",
-                    "  event stub", "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
+                            "This task has been added to the list.",
+                            "  event stub",
+                            "Now, 2 tasks stand before you. Choose wisely, for time is ever fleeting.")),
                     p.getValue());
         } catch (WrongFormatException e) {
             System.out.println(e.getMessage());

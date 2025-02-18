@@ -13,6 +13,7 @@ import odin.parser.command.ExitCommand;
 import odin.parser.command.FindCommand;
 import odin.parser.command.ListCommand;
 import odin.parser.command.MarkCommand;
+import odin.parser.command.UndoCommand;
 import odin.parser.command.UnmarkCommand;
 import odin.task.TaskList;
 
@@ -44,6 +45,7 @@ public class Parser {
             new AddDeadlineCommand(),
             new AddEventCommand(),
             new MarkCommand(),
+            new UndoCommand(),
             new UnmarkCommand(),
             new DeleteCommand()};
 
