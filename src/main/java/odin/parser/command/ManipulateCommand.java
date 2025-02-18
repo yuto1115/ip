@@ -36,5 +36,5 @@ public abstract class ManipulateCommand implements Command {
     /**
      * Manipulates the task designated by the given task list and index.
      */
-    abstract void manipulate();
+    abstract void manipulate() throws WrongFormatException;
 }
