@@ -58,7 +58,6 @@ public class Storage {
             System.out.println("(system) " + e.getMessage());
             System.out.println("(system) Task record is broken. Initialising with an empty task list.");
         }
-        System.out.println(SEPARATOR);
         return new TaskList();
     }
 
