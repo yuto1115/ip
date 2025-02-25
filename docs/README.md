@@ -2,7 +2,7 @@
 
 ![Screenshot of the chatbot's GUI](Ui.png)
 
-Odin is a desktop chatbot application designed for task and event management,
+Odin is a **desktop chatbot application designed for task and event management**,
 combining the efficiency of a Command Line Interface (CLI) with the advantages of a Graphical User Interface (GUI).
 
 # Features & Commands
@@ -177,5 +177,5 @@ The saved task list is automatically restored when the application is reopened.
 
 # Credit
 
-[Canva AI Image Generator](https://www.canva.com/ai-image-generator/) is used to generate images for the icons of chatbot and user displayed in the GUI.
-[ChatGPT](https://chatgpt.com) is used to correct and refine the grammar of this user guide.
+- [Canva AI Image Generator](https://www.canva.com/ai-image-generator/) is used to generate images for the icons of chatbot and user displayed in the GUI.
+- [ChatGPT](https://chatgpt.com) is used to correct and refine the grammar of this user guide.
